@@ -44,7 +44,7 @@ so today we are gonna be talking about
 
 12
 00:00:23,369 --> 00:00:26,250
-recurrent neural networks record neural
+recurrent neural networks recurrent neural
 
 13
 00:00:26,250 --> 00:00:28,680
@@ -104,7 +104,7 @@ from to go to right? so temporal handling
 
 27
 00:01:06,270 --> 00:01:08,130
-sequential sequences of data is
+sequential sequences of data that is
 
 28
 00:01:08,130 --> 00:01:10,580
@@ -160,7 +160,7 @@ hidden layer in a green in the center
 
 41
 00:01:42,450 --> 00:01:44,640
-then I have my final blue eared lane
+then I have my final blue 
 
 42
 00:01:44,640 --> 00:01:46,200
@@ -1117,7 +1117,7 @@ connection between cities and the
 280
 00:11:55,640 --> 00:11:59,180
 capitals all right so one more right I
-
+#########up to here
 281
 00:11:59,180 --> 00:12:02,240
 think what's missing from the big
