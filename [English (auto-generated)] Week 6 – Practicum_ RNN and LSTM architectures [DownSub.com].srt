@@ -1,0 +1,4648 @@
+1
+00:00:00,030 --> 00:00:01,680
+so today we are gonna be covering quite
+
+2
+00:00:01,680 --> 00:00:03,959
+a lot of materials so I will try not to
+
+3
+00:00:03,959 --> 00:00:06,060
+run but then yesterday young scooped me
+
+4
+00:00:06,060 --> 00:00:08,309
+completely so young talked about exactly
+
+5
+00:00:08,309 --> 00:00:09,780
+the same things I wanted to talk today
+
+6
+00:00:09,780 --> 00:00:15,269
+so I'm gonna go a bit faster please slow
+
+7
+00:00:15,269 --> 00:00:17,670
+me down if you actually are somehow lost
+
+8
+00:00:17,670 --> 00:00:18,210
+okay
+
+9
+00:00:18,210 --> 00:00:20,640
+so I will just try to be a little bit
+
+10
+00:00:20,640 --> 00:00:21,420
+faster than you sir
+
+11
+00:00:21,420 --> 00:00:23,369
+so today we are gonna be talking about
+
+12
+00:00:23,369 --> 00:00:26,250
+recurrent neural networks record neural
+
+13
+00:00:26,250 --> 00:00:28,680
+networks are one type of architecture we
+
+14
+00:00:28,680 --> 00:00:31,050
+can use in order to be to deal with
+
+15
+00:00:31,050 --> 00:00:33,570
+sequences of data what are sequences
+
+16
+00:00:33,570 --> 00:00:37,430
+what type of signal is a sequence
+
+17
+00:00:39,890 --> 00:00:42,149
+temporal is a temporal component but we
+
+18
+00:00:42,149 --> 00:00:44,219
+already seen data with temporal
+
+19
+00:00:44,219 --> 00:00:46,590
+component how what are they called
+
+20
+00:00:46,590 --> 00:00:49,350
+what dimensional what is the dimension
+
+21
+00:00:49,350 --> 00:00:53,010
+of that kind of signal so on the
+
+22
+00:00:53,010 --> 00:00:55,320
+convolutional net lesson we have seen
+
+23
+00:00:55,320 --> 00:00:57,660
+that a signal could be one this signal
+
+24
+00:00:57,660 --> 00:00:59,969
+to this signal 3d signal based on the
+
+25
+00:00:59,969 --> 00:01:01,859
+domain and the domain is what you map
+
+26
+00:01:01,859 --> 00:01:06,270
+from to go to right so temporal handling
+
+27
+00:01:06,270 --> 00:01:08,130
+sequential sequences of data is
+
+28
+00:01:08,130 --> 00:01:10,580
+basically dealing with one the data
+
+29
+00:01:10,580 --> 00:01:12,630
+because the domain is going to be just
+
+30
+00:01:12,630 --> 00:01:15,119
+the temporal axis nevertheless you can
+
+31
+00:01:15,119 --> 00:01:17,340
+also use RNN to deal with you know two
+
+32
+00:01:17,340 --> 00:01:18,689
+dimensional data you have double
+
+33
+00:01:18,689 --> 00:01:25,350
+Direction okay okay so this is a
+
+34
+00:01:25,350 --> 00:01:28,049
+classical neural network in the diagram
+
+35
+00:01:28,049 --> 00:01:30,329
+that is I'm used to draw where I
+
+36
+00:01:30,329 --> 00:01:33,299
+represent each in this case bunch of
+
+37
+00:01:33,299 --> 00:01:35,280
+neurons like each of those is a vector
+
+38
+00:01:35,280 --> 00:01:37,590
+and for example the X is my input vector
+
+39
+00:01:37,590 --> 00:01:40,350
+it's in pink as usual then I have my
+
+40
+00:01:40,350 --> 00:01:42,450
+hidden layer in a green in the center
+
+41
+00:01:42,450 --> 00:01:44,640
+then I have my final blue eared lane
+
+42
+00:01:44,640 --> 00:01:46,200
+layer which is the output network so
+
+43
+00:01:46,200 --> 00:01:47,790
+this is a three layer neural network in
+
+44
+00:01:47,790 --> 00:01:52,320
+my for my notation and so if some of you
+
+45
+00:01:52,320 --> 00:01:56,189
+are familiar with digital electronics
+
+46
+00:01:56,189 --> 00:01:57,960
+this is like talking about a
+
+47
+00:01:57,960 --> 00:02:00,810
+combinatorial logic your current output
+
+48
+00:02:00,810 --> 00:02:03,329
+depends only on the current input and
+
+49
+00:02:03,329 --> 00:02:05,600
+that's it there is no
+
+50
+00:02:05,600 --> 00:02:08,419
+there is no other input instead when we
+
+51
+00:02:08,419 --> 00:02:10,699
+are talking about our men we are gonna
+
+52
+00:02:10,699 --> 00:02:12,590
+be talking about something that looks
+
+53
+00:02:12,590 --> 00:02:15,410
+like this in this case our output here
+
+54
+00:02:15,410 --> 00:02:17,420
+on the right hand side depends on the
+
+55
+00:02:17,420 --> 00:02:19,850
+current input and on the state of the
+
+56
+00:02:19,850 --> 00:02:21,860
+system and again if you're a king of
+
+57
+00:02:21,860 --> 00:02:24,500
+digital electronics this is simply
+
+58
+00:02:24,500 --> 00:02:26,750
+sequential logic whereas you have an
+
+59
+00:02:26,750 --> 00:02:28,640
+internal state the onion is the
+
+60
+00:02:28,640 --> 00:02:31,580
+dimension flip-flop if you have no idea
+
+61
+00:02:31,580 --> 00:02:33,170
+what a flip-flop you know check it out
+
+62
+00:02:33,170 --> 00:02:37,040
+it's just some very basic memory unit in
+
+63
+00:02:37,040 --> 00:02:39,980
+digital electronics nevertheless this is
+
+64
+00:02:39,980 --> 00:02:41,810
+the only difference right in the first
+
+65
+00:02:41,810 --> 00:02:43,550
+case you have an output which is just
+
+66
+00:02:43,550 --> 00:02:45,290
+function of the input in the second case
+
+67
+00:02:45,290 --> 00:02:46,730
+you have an output which is function of
+
+68
+00:02:46,730 --> 00:02:49,580
+the input and the state of the system
+
+69
+00:02:49,580 --> 00:02:54,130
+okay that's the big difference yeah
+
+70
+00:02:54,940 --> 00:02:58,040
+vanilla is in American term for saying
+
+71
+00:02:58,040 --> 00:03:00,640
+it's plane doesn't have a taste that
+
+72
+00:03:00,640 --> 00:03:04,670
+American sorry I try to be the most
+
+73
+00:03:04,670 --> 00:03:10,010
+American I can in Italy you feel taken
+
+74
+00:03:10,010 --> 00:03:11,390
+an ice cream which is doesn't have a
+
+75
+00:03:11,390 --> 00:03:12,799
+taste it's gonna be fury laughter which
+
+76
+00:03:12,799 --> 00:03:15,950
+is milk taste in here we don't have milk
+
+77
+00:03:15,950 --> 00:03:18,320
+tests they have vanilla taste which is
+
+78
+00:03:18,320 --> 00:03:20,049
+the plain ice cream
+
+79
+00:03:20,049 --> 00:03:23,310
+okay Americans sorry
+
+80
+00:03:23,310 --> 00:03:28,360
+all right so oh so let's see what does
+
+81
+00:03:28,360 --> 00:03:30,340
+it change this with young representation
+
+82
+00:03:30,340 --> 00:03:32,760
+so young draws those kind of little
+
+83
+00:03:32,760 --> 00:03:35,560
+funky things here which represent a
+
+84
+00:03:35,560 --> 00:03:38,170
+mapping between a TENS tensor to another
+
+85
+00:03:38,170 --> 00:03:39,970
+painter from one a vector to another
+
+86
+00:03:39,970 --> 00:03:41,800
+vector right so there you have your
+
+87
+00:03:41,800 --> 00:03:44,050
+input vector X is gonna be mapped
+
+88
+00:03:44,050 --> 00:03:46,630
+through this item here to this hidden
+
+89
+00:03:46,630 --> 00:03:48,070
+representation so that actually
+
+90
+00:03:48,070 --> 00:03:50,620
+represent my fine transformation so my
+
+91
+00:03:50,620 --> 00:03:52,780
+rotation Plus this question then you
+
+92
+00:03:52,780 --> 00:03:54,130
+have the heater representation that you
+
+93
+00:03:54,130 --> 00:03:56,050
+have another rotation is question then
+
+94
+00:03:56,050 --> 00:03:57,850
+you get the final output right similarly
+
+95
+00:03:57,850 --> 00:04:00,040
+in the recurrent diagram you can have
+
+96
+00:04:00,040 --> 00:04:03,220
+these additional things this is a fine
+
+97
+00:04:03,220 --> 00:04:04,660
+transformation squashing that's like a
+
+98
+00:04:04,660 --> 00:04:06,640
+delay module with a final transformation
+
+99
+00:04:06,640 --> 00:04:08,830
+excursion and now you have the final one
+
+100
+00:04:08,830 --> 00:04:10,900
+affine transformation and squashing
+
+101
+00:04:10,900 --> 00:04:14,620
+right these things is making noise okay
+
+102
+00:04:14,620 --> 00:04:18,100
+sorry all right so what is the first
+
+103
+00:04:18,100 --> 00:04:20,440
+case first case is this one is a vector
+
+104
+00:04:20,440 --> 00:04:24,250
+to sequence so we input one bubble the
+
+105
+00:04:24,250 --> 00:04:26,290
+pink wonder and then you're gonna have
+
+106
+00:04:26,290 --> 00:04:28,270
+this evolution of the internal state of
+
+107
+00:04:28,270 --> 00:04:30,730
+the system the green one and then as the
+
+108
+00:04:30,730 --> 00:04:33,070
+state of the system evolves you can be
+
+109
+00:04:33,070 --> 00:04:35,169
+spitting out at every time stamp one
+
+110
+00:04:35,169 --> 00:04:38,470
+specific output what can be an example
+
+111
+00:04:38,470 --> 00:04:40,750
+of this kind of architecture so this one
+
+112
+00:04:40,750 --> 00:04:43,240
+could be the following my input is gonna
+
+113
+00:04:43,240 --> 00:04:45,310
+be one of these images and then the
+
+114
+00:04:45,310 --> 00:04:46,750
+output is going to be a sequence of
+
+115
+00:04:46,750 --> 00:04:49,240
+characters representing the English
+
+116
+00:04:49,240 --> 00:04:53,140
+description of whatever this input is so
+
+117
+00:04:53,140 --> 00:04:55,270
+for example in the center when we have a
+
+118
+00:04:55,270 --> 00:04:57,940
+herd of elephants so the last one herd
+
+119
+00:04:57,940 --> 00:05:00,220
+of elephants walking across a dry grass
+
+120
+00:05:00,220 --> 00:05:03,880
+field so it's very very very well
+
+121
+00:05:03,880 --> 00:05:06,250
+refined right then you have in the
+
+122
+00:05:06,250 --> 00:05:09,130
+center here for example two dogs play in
+
+123
+00:05:09,130 --> 00:05:12,880
+the in the grass maybe there are three
+
+124
+00:05:12,880 --> 00:05:15,640
+but okay they play they're playing in
+
+125
+00:05:15,640 --> 00:05:17,770
+the grass right so it's cool in this
+
+126
+00:05:17,770 --> 00:05:20,500
+case you know a red motorcycle park on
+
+127
+00:05:20,500 --> 00:05:21,970
+the side of the road
+
+128
+00:05:21,970 --> 00:05:24,610
+looks more pink or you know a little
+
+129
+00:05:24,610 --> 00:05:26,980
+blow a little a little girl in the pink
+
+130
+00:05:26,980 --> 00:05:30,490
+that is blowing bubbles that she's not
+
+131
+00:05:30,490 --> 00:05:33,640
+blowing right anything there all right
+
+132
+00:05:33,640 --> 00:05:35,650
+and then you also have you know even
+
+133
+00:05:35,650 --> 00:05:39,010
+more wrong examples right so you have
+
+134
+00:05:39,010 --> 00:05:41,560
+like yellow school bus parked in the
+
+135
+00:05:41,560 --> 00:05:42,250
+parking lot
+
+136
+00:05:42,250 --> 00:05:44,050
+well it's CL um but it's not a school
+
+137
+00:05:44,050 --> 00:05:46,600
+bus so it can be failing as well but I
+
+138
+00:05:46,600 --> 00:05:49,860
+also can do a very very nice you know
+
+139
+00:05:49,860 --> 00:05:52,810
+you can also perform very well so this
+
+140
+00:05:52,810 --> 00:05:56,470
+was from one input vector which is B for
+
+141
+00:05:56,470 --> 00:05:59,440
+example representation of my image to a
+
+142
+00:05:59,440 --> 00:06:01,720
+sequence of symbols which are D for
+
+143
+00:06:01,720 --> 00:06:03,790
+example characters or words that are
+
+144
+00:06:03,790 --> 00:06:05,620
+making here my English sentence okay
+
+145
+00:06:05,620 --> 00:06:09,190
+clear so far yeah okay another kind of
+
+146
+00:06:09,190 --> 00:06:11,440
+usage you can have is maybe the
+
+147
+00:06:11,440 --> 00:06:14,200
+following so you're gonna have sequence
+
+148
+00:06:14,200 --> 00:06:17,560
+two final vector okay so I don't care
+
+149
+00:06:17,560 --> 00:06:19,660
+about the intermediate sequences so okay
+
+150
+00:06:19,660 --> 00:06:22,120
+the top right is called Auto regressive
+
+151
+00:06:22,120 --> 00:06:24,370
+network and outer regressive network is
+
+152
+00:06:24,370 --> 00:06:26,590
+a network which is outputting an output
+
+153
+00:06:26,590 --> 00:06:28,810
+given that you feel as input the
+
+154
+00:06:28,810 --> 00:06:29,950
+previous output okay
+
+155
+00:06:29,950 --> 00:06:31,690
+so this is called Auto regressive you
+
+156
+00:06:31,690 --> 00:06:33,700
+have this kind of loopy part on the
+
+157
+00:06:33,700 --> 00:06:35,260
+network on the left hand side instead
+
+158
+00:06:35,260 --> 00:06:37,780
+I'm gonna be providing several sequences
+
+159
+00:06:37,780 --> 00:06:40,140
+yeah
+
+160
+00:06:48,930 --> 00:06:51,509
+that's gonna be the English translation
+
+161
+00:06:51,509 --> 00:06:53,880
+so you have a sequence of words that are
+
+162
+00:06:53,880 --> 00:06:55,380
+going to make up your final sentence
+
+163
+00:06:55,380 --> 00:06:57,660
+it's it's blue there you can think about
+
+164
+00:06:57,660 --> 00:07:00,330
+a index in a dictionary and then each
+
+165
+00:07:00,330 --> 00:07:01,889
+blue is going to tell you which word
+
+166
+00:07:01,889 --> 00:07:03,300
+you're gonna pick on an indexed
+
+167
+00:07:03,300 --> 00:07:07,380
+dictionary right so this is a school bus
+
+168
+00:07:07,380 --> 00:07:09,780
+right so oh yeah a yellow school bus you
+
+169
+00:07:09,780 --> 00:07:12,570
+go to a index of a then you have second
+
+170
+00:07:12,570 --> 00:07:14,940
+index you can figure out that is yellow
+
+171
+00:07:14,940 --> 00:07:16,740
+and then school box right so the
+
+172
+00:07:16,740 --> 00:07:17,820
+sequence here is going to be
+
+173
+00:07:17,820 --> 00:07:19,979
+representing the sequence of words the
+
+174
+00:07:19,979 --> 00:07:22,590
+model is out on the other side there on
+
+175
+00:07:22,590 --> 00:07:24,180
+the left you're gonna have instead I
+
+176
+00:07:24,180 --> 00:07:26,460
+keep feeding a sequence of symbols and
+
+177
+00:07:26,460 --> 00:07:28,740
+only at the end I'm gonna look what is
+
+178
+00:07:28,740 --> 00:07:30,750
+my final output what can be an
+
+179
+00:07:30,750 --> 00:07:33,539
+application of this one so something yun
+
+180
+00:07:33,539 --> 00:07:36,150
+also mentioned was different so let's
+
+181
+00:07:36,150 --> 00:07:37,979
+see if I can get my network to compile
+
+182
+00:07:37,979 --> 00:07:40,789
+Python or to an open pilot own
+
+183
+00:07:40,789 --> 00:07:43,410
+interpretation so in this case I have my
+
+184
+00:07:43,410 --> 00:07:45,599
+current input which I feed my network
+
+185
+00:07:45,599 --> 00:07:49,620
+which is going to be J equal 8580 for
+
+186
+00:07:49,620 --> 00:07:54,979
+then for X in range eight some - J 920
+
+187
+00:07:54,979 --> 00:07:57,960
+blah blah blah and then print this one
+
+188
+00:07:57,960 --> 00:07:59,430
+and then my network is going to be
+
+189
+00:07:59,430 --> 00:08:02,010
+tasked with the just you know giving me
+
+190
+00:08:02,010 --> 00:08:04,860
+twenty five thousand and eleven okay so
+
+191
+00:08:04,860 --> 00:08:06,419
+this is the final output of a program
+
+192
+00:08:06,419 --> 00:08:09,210
+and I enforced in the network to be able
+
+193
+00:08:09,210 --> 00:08:12,000
+to output me the correct output the
+
+194
+00:08:12,000 --> 00:08:13,860
+correct in your solution of this program
+
+195
+00:08:13,860 --> 00:08:16,229
+or even more complicated things for
+
+196
+00:08:16,229 --> 00:08:18,330
+example I can provide a sequence of
+
+197
+00:08:18,330 --> 00:08:19,740
+other symbols which are going to be
+
+198
+00:08:19,740 --> 00:08:21,900
+eighty eight thousand eight hundred
+
+199
+00:08:21,900 --> 00:08:23,970
+thirty seven then I have C is going to
+
+200
+00:08:23,970 --> 00:08:26,669
+be something then I have print this one
+
+201
+00:08:26,669 --> 00:08:30,599
+if something that is always true as the
+
+202
+00:08:30,599 --> 00:08:33,360
+other one and then you know the output
+
+203
+00:08:33,360 --> 00:08:36,450
+should be twelve thousand eight 184
+
+204
+00:08:36,450 --> 00:08:38,849
+right so you can train a neural net to
+
+205
+00:08:38,849 --> 00:08:40,890
+do these operations so you feed a
+
+206
+00:08:40,890 --> 00:08:42,690
+sequence of symbols and then at the
+
+207
+00:08:42,690 --> 00:08:44,730
+output you just enforce that the final
+
+208
+00:08:44,730 --> 00:08:48,870
+target should be a specific value okay
+
+209
+00:08:48,870 --> 00:08:54,970
+and these things making noise okay maybe
+
+210
+00:08:54,970 --> 00:08:56,190
+I'm better
+
+211
+00:08:56,190 --> 00:09:00,700
+all right so what's next next is going
+
+212
+00:09:00,700 --> 00:09:02,589
+to be for example a sequence to vector
+
+213
+00:09:02,589 --> 00:09:05,140
+to sequence this used to be the standard
+
+214
+00:09:05,140 --> 00:09:07,210
+way of performing length language
+
+215
+00:09:07,210 --> 00:09:09,490
+translation so you start with a sequence
+
+216
+00:09:09,490 --> 00:09:13,000
+of symbols here shown in pink so you
+
+217
+00:09:13,000 --> 00:09:14,680
+have a sequence of inputs then
+
+218
+00:09:14,680 --> 00:09:17,290
+everything gets condensed into this kind
+
+219
+00:09:17,290 --> 00:09:20,290
+of final age which is this H over here
+
+220
+00:09:20,290 --> 00:09:23,020
+which is going to be somehow my concept
+
+221
+00:09:23,020 --> 00:09:25,630
+right so I have a sentence I squeeze the
+
+222
+00:09:25,630 --> 00:09:27,880
+sentence temporal information into just
+
+223
+00:09:27,880 --> 00:09:29,800
+one vector which is representing the
+
+224
+00:09:29,800 --> 00:09:31,600
+meaning the message I'd like to send
+
+225
+00:09:31,600 --> 00:09:33,520
+across and then I get this meaning in
+
+226
+00:09:33,520 --> 00:09:36,310
+whatever representation unrolled back in
+
+227
+00:09:36,310 --> 00:09:37,720
+a different language right so I can
+
+228
+00:09:37,720 --> 00:09:41,380
+encode I don't know today I'm very happy
+
+229
+00:09:41,380 --> 00:09:43,600
+in English as a sequence of word and
+
+230
+00:09:43,600 --> 00:09:47,350
+then you know you can get LG Sonoma to
+
+231
+00:09:47,350 --> 00:09:48,730
+Felicia and then I speak outside
+
+232
+00:09:48,730 --> 00:09:53,170
+Thailand today or whatever now today I'm
+
+233
+00:09:53,170 --> 00:09:54,310
+very tired
+
+234
+00:09:54,310 --> 00:09:58,480
+Jin Chen walk han lei or whatever ok so
+
+235
+00:09:58,480 --> 00:10:00,640
+again you have some kind of encoding
+
+236
+00:10:00,640 --> 00:10:02,020
+then you have a compressed
+
+237
+00:10:02,020 --> 00:10:04,540
+representation and then you get like the
+
+238
+00:10:04,540 --> 00:10:08,110
+decoding given the same compressed
+
+239
+00:10:08,110 --> 00:10:11,950
+version ok and so for example I guess
+
+240
+00:10:11,950 --> 00:10:15,040
+language translation again recently we
+
+241
+00:10:15,040 --> 00:10:17,890
+have seen transformers and a lot of
+
+242
+00:10:17,890 --> 00:10:20,709
+things like in the recent time so we're
+
+243
+00:10:20,709 --> 00:10:22,600
+going to cover that the next lesson I
+
+244
+00:10:22,600 --> 00:10:25,300
+think but this used to be the state of
+
+245
+00:10:25,300 --> 00:10:28,930
+the art until few two years ago and here
+
+246
+00:10:28,930 --> 00:10:31,000
+you can see that if you actually check
+
+247
+00:10:31,000 --> 00:10:34,089
+if you do a PCA over the latent space
+
+248
+00:10:34,089 --> 00:10:38,950
+you have that words are grouped by
+
+249
+00:10:38,950 --> 00:10:42,160
+semantics ok so if we zoom in that
+
+250
+00:10:42,160 --> 00:10:43,630
+region there are we're gonna see that in
+
+251
+00:10:43,630 --> 00:10:46,000
+what in the same location you find all
+
+252
+00:10:46,000 --> 00:10:48,400
+the amounts december february november
+
+253
+00:10:48,400 --> 00:10:50,529
+whatever right if you put a few focus on
+
+254
+00:10:50,529 --> 00:10:52,750
+a different region you get that a few
+
+255
+00:10:52,750 --> 00:10:53,510
+days
+
+256
+00:10:53,510 --> 00:10:55,250
+next few miles and so on right so
+
+257
+00:10:55,250 --> 00:10:57,350
+different location will have some
+
+258
+00:10:57,350 --> 00:11:00,230
+specific you know common meaning so we
+
+259
+00:11:00,230 --> 00:11:03,380
+basically see in this case how by
+
+260
+00:11:03,380 --> 00:11:05,780
+training these networks you know just
+
+261
+00:11:05,780 --> 00:11:07,880
+with symbols they will pick up on some
+
+262
+00:11:07,880 --> 00:11:09,680
+specific semantics
+
+263
+00:11:09,680 --> 00:11:12,830
+you know features right in this case you
+
+264
+00:11:12,830 --> 00:11:16,130
+can see like there is a vector so the
+
+265
+00:11:16,130 --> 00:11:18,110
+vector that is connecting women to men
+
+266
+00:11:18,110 --> 00:11:20,900
+is gonna be the same vector that is well
+
+267
+00:11:20,900 --> 00:11:24,080
+woman - man which is this one I think is
+
+268
+00:11:24,080 --> 00:11:27,590
+gonna be equal to Queen - King right and
+
+269
+00:11:27,590 --> 00:11:30,620
+so yeah it's correct and so you're gonna
+
+270
+00:11:30,620 --> 00:11:32,890
+have that the same distance in this
+
+271
+00:11:32,890 --> 00:11:35,810
+embedding space will be applied to
+
+272
+00:11:35,810 --> 00:11:37,730
+things that are female and male for
+
+273
+00:11:37,730 --> 00:11:39,800
+example or in the other case you have
+
+274
+00:11:39,800 --> 00:11:43,370
+walk-in and walked swimming and swamp so
+
+275
+00:11:43,370 --> 00:11:45,710
+you always have this you know specific
+
+276
+00:11:45,710 --> 00:11:47,960
+linear transformation you can apply in
+
+277
+00:11:47,960 --> 00:11:51,680
+order to go from one type of word to the
+
+278
+00:11:51,680 --> 00:11:53,690
+other one or this one you have the
+
+279
+00:11:53,690 --> 00:11:55,640
+connection between cities and the
+
+280
+00:11:55,640 --> 00:11:59,180
+capitals all right so one more right I
+
+281
+00:11:59,180 --> 00:12:02,240
+think what's missing from the big
+
+282
+00:12:02,240 --> 00:12:05,210
+picture here it's a big picture because
+
+283
+00:12:05,210 --> 00:12:06,890
+it's so large no no it's such a big
+
+284
+00:12:06,890 --> 00:12:09,560
+picture because it's the overview okay
+
+285
+00:12:09,560 --> 00:12:12,560
+you didn't get the joke it's okay what's
+
+286
+00:12:12,560 --> 00:12:18,590
+missing here vector to seek with no okay
+
+287
+00:12:18,590 --> 00:12:20,540
+good but no because you can still use
+
+288
+00:12:20,540 --> 00:12:23,330
+the other one so you have this one the
+
+289
+00:12:23,330 --> 00:12:25,700
+vector is sequence to sequence right so
+
+290
+00:12:25,700 --> 00:12:27,830
+this one is you start feeding inside
+
+291
+00:12:27,830 --> 00:12:29,780
+inputs you start outputting something
+
+292
+00:12:29,780 --> 00:12:31,580
+right what can be an example of this
+
+293
+00:12:31,580 --> 00:12:36,320
+stuff so if you had a Nokia phone and
+
+294
+00:12:36,320 --> 00:12:38,900
+you use the t9 you know this stuff from
+
+295
+00:12:38,900 --> 00:12:40,760
+20 years ago you have basically
+
+296
+00:12:40,760 --> 00:12:43,100
+suggestions on what your typing is
+
+297
+00:12:43,100 --> 00:12:45,380
+you're typing right so this would be one
+
+298
+00:12:45,380 --> 00:12:47,150
+type of these suggestions where like one
+
+299
+00:12:47,150 --> 00:12:49,010
+type of this architecture as you getting
+
+300
+00:12:49,010 --> 00:12:50,570
+suggestions as you're typing things
+
+301
+00:12:50,570 --> 00:12:54,850
+through or you may have like speech to
+
+302
+00:12:54,850 --> 00:12:57,290
+captions right I talked and you have the
+
+303
+00:12:57,290 --> 00:12:58,740
+things
+
+304
+00:12:58,740 --> 00:13:02,520
+below or something very cool which is
+
+305
+00:13:02,520 --> 00:13:05,010
+the following so I start writing here
+
+306
+00:13:05,010 --> 00:13:08,089
+the rings of Saturn glitter while the
+
+307
+00:13:08,089 --> 00:13:11,089
+harsh ice two men look at each other hmm
+
+308
+00:13:11,089 --> 00:13:16,260
+okay they were enemies but the server
+
+309
+00:13:16,260 --> 00:13:18,390
+robots weren't okay okay hold on
+
+310
+00:13:18,390 --> 00:13:20,100
+so this network was trained on some
+
+311
+00:13:20,100 --> 00:13:22,770
+sci-fi novels and therefore you can just
+
+312
+00:13:22,770 --> 00:13:24,360
+type something then you let the network
+
+313
+00:13:24,360 --> 00:13:26,130
+start outputting some suggestions for
+
+314
+00:13:26,130 --> 00:13:28,290
+you so you know if you don't know how to
+
+315
+00:13:28,290 --> 00:13:31,080
+write a book then you can you know ask
+
+316
+00:13:31,080 --> 00:13:34,620
+your computer to help you out okay
+
+317
+00:13:34,620 --> 00:13:37,290
+that's so cool or one more that I really
+
+318
+00:13:37,290 --> 00:13:39,740
+like it this one is fantastic I think
+
+319
+00:13:39,740 --> 00:13:43,560
+you should read read it I think so you
+
+320
+00:13:43,560 --> 00:13:45,959
+put some kind of input there like the
+
+321
+00:13:45,959 --> 00:13:49,320
+scientist named alone what is it
+
+322
+00:13:49,320 --> 00:13:51,630
+or the prompt right so you put in the
+
+323
+00:13:51,630 --> 00:13:54,360
+the top prompt and then you get you know
+
+324
+00:13:54,360 --> 00:13:56,839
+this network start writing about very
+
+325
+00:13:56,839 --> 00:14:00,149
+interesting unicorns with multiple horns
+
+326
+00:14:00,149 --> 00:14:05,690
+is called horns say unicorn right okay
+
+327
+00:14:05,690 --> 00:14:07,980
+alright let's so cool just check it out
+
+328
+00:14:07,980 --> 00:14:09,480
+later and you can take a screenshot of
+
+329
+00:14:09,480 --> 00:14:11,820
+the screen anyhow so that was like the
+
+330
+00:14:11,820 --> 00:14:14,970
+eye candy such that you get you know
+
+331
+00:14:14,970 --> 00:14:19,920
+hungry now let's go into be PTT which is
+
+332
+00:14:19,920 --> 00:14:21,089
+the thing that they aren't really like
+
+333
+00:14:21,089 --> 00:14:24,060
+yesterday's PTT said okay alright let's
+
+334
+00:14:24,060 --> 00:14:27,390
+see how this stuff works okay so on the
+
+335
+00:14:27,390 --> 00:14:29,190
+left hand side we see again this vector
+
+336
+00:14:29,190 --> 00:14:31,620
+middle in the representation the output
+
+337
+00:14:31,620 --> 00:14:34,020
+to a fine transformation and then there
+
+338
+00:14:34,020 --> 00:14:35,520
+we have the classical equations right
+
+339
+00:14:35,520 --> 00:14:39,020
+all right so let's see how this stuff is
+
+340
+00:14:39,020 --> 00:14:42,450
+similar or not similar and you can't see
+
+341
+00:14:42,450 --> 00:14:44,940
+anything so for the next two seconds I
+
+342
+00:14:44,940 --> 00:14:46,620
+will want one minute I will turn off the
+
+343
+00:14:46,620 --> 00:14:48,420
+lights then I turn them on
+
+344
+00:14:48,420 --> 00:14:51,300
+[Music]
+
+345
+00:14:51,300 --> 00:14:53,800
+okay now you can see something all right
+
+346
+00:14:53,800 --> 00:14:55,570
+so let's see what are the questions of
+
+347
+00:14:55,570 --> 00:14:59,290
+this new architecture don't stand up
+
+348
+00:14:59,290 --> 00:15:00,490
+you're gonna be crushing yourself
+
+349
+00:15:00,490 --> 00:15:02,200
+alright so you have here the hidden
+
+350
+00:15:02,200 --> 00:15:04,270
+representation now there's gonna be this
+
+351
+00:15:04,270 --> 00:15:07,300
+nonlinear function of this rotation of a
+
+352
+00:15:07,300 --> 00:15:10,000
+stack version of my input which I
+
+353
+00:15:10,000 --> 00:15:12,490
+appended the previous configuration of
+
+354
+00:15:12,490 --> 00:15:15,520
+the hidden layer okay and so this is a
+
+355
+00:15:15,520 --> 00:15:18,010
+very nice compact notation it's just I
+
+356
+00:15:18,010 --> 00:15:19,420
+just put the two vectors one on top of
+
+357
+00:15:19,420 --> 00:15:21,730
+each other and then I sign assign I sum
+
+358
+00:15:21,730 --> 00:15:24,640
+the bias I also and define initial
+
+359
+00:15:24,640 --> 00:15:27,520
+condition my initial H is gonna be 0 so
+
+360
+00:15:27,520 --> 00:15:29,920
+at the beginning whenever I have T equal
+
+361
+00:15:29,920 --> 00:15:32,530
+1 this stuff is gonna be settle is a
+
+362
+00:15:32,530 --> 00:15:34,360
+vector of zeros and then I have this
+
+363
+00:15:34,360 --> 00:15:37,840
+matrix WH is gonna be two separate
+
+364
+00:15:37,840 --> 00:15:39,880
+matrices so sometimes you see this a
+
+365
+00:15:39,880 --> 00:15:44,770
+question is wh x times x plus w HH times
+
+366
+00:15:44,770 --> 00:15:48,130
+h t minus 1 but you can also figure out
+
+367
+00:15:48,130 --> 00:15:50,440
+that if you stock those two matrices you
+
+368
+00:15:50,440 --> 00:15:52,450
+know one attached to the other that you
+
+369
+00:15:52,450 --> 00:15:53,890
+just put this two vertical lines
+
+370
+00:15:53,890 --> 00:15:56,620
+completely equivalent notation but it
+
+371
+00:15:56,620 --> 00:15:58,360
+looked like very similar to whatever we
+
+372
+00:15:58,360 --> 00:16:01,360
+had here so hidden layer is affine
+
+373
+00:16:01,360 --> 00:16:03,430
+transformation of the input inner layer
+
+374
+00:16:03,430 --> 00:16:05,230
+is affine transformation of the input
+
+375
+00:16:05,230 --> 00:16:08,980
+and the previous value okay and then you
+
+376
+00:16:08,980 --> 00:16:11,440
+have the final output is going to be
+
+377
+00:16:11,440 --> 00:16:15,460
+again my final rotation so I'm gonna
+
+378
+00:16:15,460 --> 00:16:20,140
+turn on the light so no magic so far
+
+379
+00:16:20,140 --> 00:16:24,540
+right you're okay right you're with me
+
+380
+00:16:24,540 --> 00:16:27,690
+to shake the heads what about the others
+
+381
+00:16:27,690 --> 00:16:31,720
+no yes okay whatever
+
+382
+00:16:31,720 --> 00:16:34,930
+so this one is simply on the right hand
+
+383
+00:16:34,930 --> 00:16:37,210
+side I simply unroll over time such that
+
+384
+00:16:37,210 --> 00:16:40,330
+you can see how things are just not very
+
+385
+00:16:40,330 --> 00:16:42,670
+crazy like this loop here is not
+
+386
+00:16:42,670 --> 00:16:43,990
+actually a loop this is like a
+
+387
+00:16:43,990 --> 00:16:45,170
+connection to
+
+388
+00:16:45,170 --> 00:16:48,500
+next time steps right so that around
+
+389
+00:16:48,500 --> 00:16:51,019
+arrow means is just this right arrow so
+
+390
+00:16:51,019 --> 00:16:52,760
+this is a neural net it's dinkley a
+
+391
+00:16:52,760 --> 00:16:54,529
+neural net which is extended in in
+
+392
+00:16:54,529 --> 00:16:57,950
+length rather also not only in a in a
+
+393
+00:16:57,950 --> 00:16:59,660
+thickness right so you have a network
+
+394
+00:16:59,660 --> 00:17:01,639
+that is going this direction input and
+
+395
+00:17:01,639 --> 00:17:03,440
+output but as you can think as there's
+
+396
+00:17:03,440 --> 00:17:05,599
+been an extended input and this been an
+
+397
+00:17:05,599 --> 00:17:07,939
+extended output while all these
+
+398
+00:17:07,939 --> 00:17:10,220
+intermediate weights are all share right
+
+399
+00:17:10,220 --> 00:17:11,569
+so all of these weights are the same
+
+400
+00:17:11,569 --> 00:17:14,119
+weights and then you use this kind of
+
+401
+00:17:14,119 --> 00:17:15,890
+shared weights so it's similar to a
+
+402
+00:17:15,890 --> 00:17:17,510
+convolutional net in the sense that you
+
+403
+00:17:17,510 --> 00:17:19,640
+had this parameter sharing right across
+
+404
+00:17:19,640 --> 00:17:21,410
+different time domains because you
+
+405
+00:17:21,410 --> 00:17:24,939
+assume there is some kind of you know
+
+406
+00:17:24,939 --> 00:17:28,820
+stationarity right of the signal make
+
+407
+00:17:28,820 --> 00:17:30,500
+sense so this is a kind of convolution
+
+408
+00:17:30,500 --> 00:17:32,870
+right you can see how this is kind of a
+
+409
+00:17:32,870 --> 00:17:37,960
+convolution alright so that was kind of
+
+410
+00:17:37,960 --> 00:17:40,130
+you know a little bit of the theory we
+
+411
+00:17:40,130 --> 00:17:42,650
+already seen that so let's see how this
+
+412
+00:17:42,650 --> 00:17:46,160
+works for a practical example so in this
+
+413
+00:17:46,160 --> 00:17:49,490
+case we we are just reading this code
+
+414
+00:17:49,490 --> 00:17:51,830
+here so this is world language model you
+
+415
+00:17:51,830 --> 00:17:55,340
+can find it at the PI torch examples so
+
+416
+00:17:55,340 --> 00:17:57,770
+you have a sequence of symbols I have
+
+417
+00:17:57,770 --> 00:17:59,450
+just represented there every symbol is
+
+418
+00:17:59,450 --> 00:18:01,910
+like a letter in the alphabet and then
+
+419
+00:18:01,910 --> 00:18:03,290
+the first part is gonna be basically
+
+420
+00:18:03,290 --> 00:18:05,419
+splitting this one in this way right
+
+421
+00:18:05,419 --> 00:18:08,299
+so you preserve vertically in the time
+
+422
+00:18:08,299 --> 00:18:10,309
+domain but then I split the long long
+
+423
+00:18:10,309 --> 00:18:13,070
+long sequence such that I can now chop I
+
+424
+00:18:13,070 --> 00:18:16,640
+can use best bets bets how do you say
+
+425
+00:18:16,640 --> 00:18:19,549
+computation so the first thing you have
+
+426
+00:18:19,549 --> 00:18:21,980
+the best size is gonna be 4 in this case
+
+427
+00:18:21,980 --> 00:18:24,980
+and then I'm gonna be getting in my
+
+428
+00:18:24,980 --> 00:18:27,410
+first batch and then I will force the
+
+429
+00:18:27,410 --> 00:18:30,679
+network to be able to so this will be my
+
+430
+00:18:30,679 --> 00:18:33,650
+best back propagation through time
+
+431
+00:18:33,650 --> 00:18:36,020
+period and I will force the network to
+
+432
+00:18:36,020 --> 00:18:38,270
+output the next sequence of characters
+
+433
+00:18:38,270 --> 00:18:41,990
+ok so given that I have ABC I will force
+
+434
+00:18:41,990 --> 00:18:44,510
+my network to say D given that I have
+
+435
+00:18:44,510 --> 00:18:46,910
+GHI I will force the network to
+
+436
+00:18:46,910 --> 00:18:50,000
+come up with J givin em an orbit for
+
+437
+00:18:50,000 --> 00:18:52,310
+tonight poke at P and s tu for the
+
+438
+00:18:52,310 --> 00:18:54,980
+network 20 right so how can you actually
+
+439
+00:18:54,980 --> 00:18:57,170
+make sure you understand what I'm saying
+
+440
+00:18:57,170 --> 00:18:59,660
+whenever you are able to predict my next
+
+441
+00:18:59,660 --> 00:19:02,360
+world you're actually able to you know
+
+442
+00:19:02,360 --> 00:19:04,010
+you basically know in already what I'm
+
+443
+00:19:04,010 --> 00:19:09,710
+saying right yeah so by trying to
+
+444
+00:19:09,710 --> 00:19:11,720
+predict an upcoming word you're going to
+
+445
+00:19:11,720 --> 00:19:13,460
+be showing some kind of comprehension of
+
+446
+00:19:13,460 --> 00:19:15,170
+whatever is going to be this temporal
+
+447
+00:19:15,170 --> 00:19:19,670
+information in the data all right so
+
+448
+00:19:19,670 --> 00:19:22,700
+after we get the beds we have so how
+
+449
+00:19:22,700 --> 00:19:24,590
+does it work let's actually see you know
+
+450
+00:19:24,590 --> 00:19:26,510
+and about a bit of a detail this is
+
+451
+00:19:26,510 --> 00:19:27,920
+gonna be my first output is going to be
+
+452
+00:19:27,920 --> 00:19:30,650
+a batch with four items I feed this
+
+453
+00:19:30,650 --> 00:19:32,510
+inside the near corner all night and
+
+454
+00:19:32,510 --> 00:19:34,220
+then my neural net we come up with a
+
+455
+00:19:34,220 --> 00:19:36,680
+prediction of the upcoming sample right
+
+456
+00:19:36,680 --> 00:19:39,740
+and I will force that one to be my B H
+
+457
+00:19:39,740 --> 00:19:44,120
+and T okay then I'm gonna be having my
+
+458
+00:19:44,120 --> 00:19:47,450
+second input I will provide the previous
+
+459
+00:19:47,450 --> 00:19:51,110
+hidden state to the current RNN I will
+
+460
+00:19:51,110 --> 00:19:53,420
+feel these inside and then I expect to
+
+461
+00:19:53,420 --> 00:19:56,240
+get the second line of the output the
+
+462
+00:19:56,240 --> 00:19:58,670
+target right and then so on right I get
+
+463
+00:19:58,670 --> 00:20:01,160
+the next state and sorry the next input
+
+464
+00:20:01,160 --> 00:20:03,410
+I get the next state and then I'm gonna
+
+465
+00:20:03,410 --> 00:20:05,690
+get inside the neural net the RN n I
+
+466
+00:20:05,690 --> 00:20:07,700
+which I will try to force to get the
+
+467
+00:20:07,700 --> 00:20:13,840
+final target okay so far yeah
+
+468
+00:20:14,260 --> 00:20:18,730
+each one is gonna be the output of the
+
+469
+00:20:18,730 --> 00:20:21,260
+internet recurrent neural net right I'll
+
+470
+00:20:21,260 --> 00:20:28,280
+show you the equation before you have h1
+
+471
+00:20:28,280 --> 00:20:41,510
+comes out from this one right second the
+
+472
+00:20:41,510 --> 00:20:43,460
+output I'm gonna be forcing the output
+
+473
+00:20:43,460 --> 00:20:46,550
+actually to be my target my next word in
+
+474
+00:20:46,550 --> 00:20:48,170
+the sequence of letters right so I have
+
+475
+00:20:48,170 --> 00:20:50,570
+a sequence of words force my network to
+
+476
+00:20:50,570 --> 00:20:52,610
+predict what's the next word given the
+
+477
+00:20:52,610 --> 00:20:58,670
+previous word know h1 is going to be fed
+
+478
+00:20:58,670 --> 00:21:02,480
+inside here and you stuck the next word
+
+479
+00:21:02,480 --> 00:21:05,060
+the next word together with the previous
+
+480
+00:21:05,060 --> 00:21:07,880
+state and then you'll do a rotation of
+
+481
+00:21:07,880 --> 00:21:10,610
+the previous word with a previous sorry
+
+482
+00:21:10,610 --> 00:21:13,670
+the new word with the next state the new
+
+483
+00:21:13,670 --> 00:21:15,080
+word with the previous state you'll do
+
+484
+00:21:15,080 --> 00:21:17,720
+our rotation here find transformation
+
+485
+00:21:17,720 --> 00:21:18,620
+right and then you apply the
+
+486
+00:21:18,620 --> 00:21:21,230
+non-linearity so you always get a new
+
+487
+00:21:21,230 --> 00:21:23,750
+word that is the current X and then you
+
+488
+00:21:23,750 --> 00:21:25,610
+get the previous state just to see in
+
+489
+00:21:25,610 --> 00:21:27,230
+what state the system once and then you
+
+490
+00:21:27,230 --> 00:21:30,650
+output a new output right and so we are
+
+491
+00:21:30,650 --> 00:21:32,810
+in this situation here we have a bunch
+
+492
+00:21:32,810 --> 00:21:35,000
+of inputs I have my first input and then
+
+493
+00:21:35,000 --> 00:21:36,860
+I get the first output I have this
+
+494
+00:21:36,860 --> 00:21:39,200
+internal memory that is sent forward and
+
+495
+00:21:39,200 --> 00:21:41,720
+then this network will now be aware of
+
+496
+00:21:41,720 --> 00:21:44,240
+what happened here and then I input the
+
+497
+00:21:44,240 --> 00:21:46,910
+next input and so on I get the next
+
+498
+00:21:46,910 --> 00:21:49,450
+output and I force the output to be the
+
+499
+00:21:49,450 --> 00:21:52,460
+output here the value inside the batch
+
+500
+00:21:52,460 --> 00:21:57,040
+ok alright what's missing now
+
+501
+00:21:57,070 --> 00:22:00,160
+[Music]
+
+502
+00:22:00,490 --> 00:22:02,890
+this is for PowerPoint drawing
+
+503
+00:22:02,890 --> 00:22:05,830
+constraint all right what's happening
+
+504
+00:22:05,830 --> 00:22:08,370
+now so here I'm gonna be sending the
+
+505
+00:22:08,370 --> 00:22:11,230
+here I just drawn an arrow with the
+
+506
+00:22:11,230 --> 00:22:13,300
+final HT but there is a slash on the
+
+507
+00:22:13,300 --> 00:22:13,660
+arrow
+
+508
+00:22:13,660 --> 00:22:16,780
+what is the slash on the arrow who can
+
+509
+00:22:16,780 --> 00:22:25,660
+understand what the slash mean of course
+
+510
+00:22:25,660 --> 00:22:27,100
+there will be there is gonna be the next
+
+511
+00:22:27,100 --> 00:22:28,780
+batch they're gonna be starting from
+
+512
+00:22:28,780 --> 00:22:31,570
+here D and so on this is gonna be my
+
+513
+00:22:31,570 --> 00:22:44,110
+next batch d j pv e KQ v + FL rx right
+
+514
+00:22:44,110 --> 00:22:46,690
+so this slash here means do not back
+
+515
+00:22:46,690 --> 00:22:49,300
+propagate through okay so that one is
+
+516
+00:22:49,300 --> 00:22:51,550
+gonna be calling dot detach in Porsche
+
+517
+00:22:51,550 --> 00:22:53,710
+which is gonna be stopping the gradient
+
+518
+00:22:53,710 --> 00:22:56,560
+to be you know propagated back to
+
+519
+00:22:56,560 --> 00:22:59,050
+forever okay so this one say know that
+
+520
+00:22:59,050 --> 00:23:01,450
+and so whenever I get the sorry no no
+
+521
+00:23:01,450 --> 00:23:03,220
+gradient such that when I input the next
+
+522
+00:23:03,220 --> 00:23:06,970
+gradient the first input here it's gonna
+
+523
+00:23:06,970 --> 00:23:09,580
+be this guy over here and also of course
+
+524
+00:23:09,580 --> 00:23:11,530
+without gradient such that we don't have
+
+525
+00:23:11,530 --> 00:23:15,780
+an infinite length RN n okay make sense
+
+526
+00:23:15,780 --> 00:23:17,170
+yes
+
+527
+00:23:17,170 --> 00:23:20,760
+no I assume it's a yes
+
+528
+00:23:20,760 --> 00:23:24,640
+okay so vanishing and exploding
+
+529
+00:23:24,640 --> 00:23:27,430
+gradients we touch them upon these also
+
+530
+00:23:27,430 --> 00:23:30,730
+yesterday so again I'm kind of going a
+
+531
+00:23:30,730 --> 00:23:33,850
+little bit faster to the intent user so
+
+532
+00:23:33,850 --> 00:23:35,620
+let's see how this works
+
+533
+00:23:35,620 --> 00:23:38,260
+so usually for our recurrent neural
+
+534
+00:23:38,260 --> 00:23:40,390
+network you have an input you have a
+
+535
+00:23:40,390 --> 00:23:41,970
+hidden layer and then you have an output
+
+536
+00:23:41,970 --> 00:23:45,160
+then this value of here how do you get
+
+537
+00:23:45,160 --> 00:23:48,010
+this information through here what what
+
+538
+00:23:48,010 --> 00:23:50,680
+what does this R represent do you
+
+539
+00:23:50,680 --> 00:23:52,120
+remember the equation of the hidden
+
+540
+00:23:52,120 --> 00:23:55,840
+layer so the new hidden layer is gonna
+
+541
+00:23:55,840 --> 00:23:58,570
+be the previous hidden layer which we
+
+542
+00:23:58,570 --> 00:24:01,050
+rotate
+
+543
+00:24:03,100 --> 00:24:05,480
+alright so we rotate the previous hidden
+
+544
+00:24:05,480 --> 00:24:08,030
+layer and so how do you rotate hidden
+
+545
+00:24:08,030 --> 00:24:11,780
+layers matrices right and so every time
+
+546
+00:24:11,780 --> 00:24:15,220
+you see all ads on tile arrow there is a
+
+547
+00:24:15,220 --> 00:24:17,300
+rotation there is a matrix
+
+548
+00:24:17,300 --> 00:24:21,920
+now if the you know this matrix can
+
+549
+00:24:21,920 --> 00:24:24,770
+change the sizing of your final output
+
+550
+00:24:24,770 --> 00:24:26,900
+right so if you think about perhaps
+
+551
+00:24:26,900 --> 00:24:29,030
+let's say the determinant right if the
+
+552
+00:24:29,030 --> 00:24:31,190
+terminal is unitary it's a mapping the
+
+553
+00:24:31,190 --> 00:24:32,870
+same areas for the same area if it's
+
+554
+00:24:32,870 --> 00:24:34,610
+larger than one they're going to be
+
+555
+00:24:34,610 --> 00:24:37,400
+getting you know this radians to getting
+
+556
+00:24:37,400 --> 00:24:39,560
+larger and larger or if it's smaller
+
+557
+00:24:39,560 --> 00:24:41,360
+than I'm gonna get these gradients to go
+
+558
+00:24:41,360 --> 00:24:44,660
+to zero whenever you perform the back
+
+559
+00:24:44,660 --> 00:24:47,300
+propagation in this direction okay so
+
+560
+00:24:47,300 --> 00:24:48,920
+the problem here is that whenever we do
+
+561
+00:24:48,920 --> 00:24:51,200
+is send gradients back so the gains are
+
+562
+00:24:51,200 --> 00:24:53,390
+going to be going down like that are
+
+563
+00:24:53,390 --> 00:24:55,520
+gonna be going like down like this then
+
+564
+00:24:55,520 --> 00:24:57,800
+down like this way and down like this
+
+565
+00:24:57,800 --> 00:25:00,260
+way and also all down this way and so on
+
+566
+00:25:00,260 --> 00:25:01,610
+right so the gradients are going to be
+
+567
+00:25:01,610 --> 00:25:03,620
+always going against the direction of
+
+568
+00:25:03,620 --> 00:25:06,380
+the arrow in H ro has a matrix inside
+
+569
+00:25:06,380 --> 00:25:08,870
+right and again this matrix will affect
+
+570
+00:25:08,870 --> 00:25:11,510
+how these gradients propagate and that's
+
+571
+00:25:11,510 --> 00:25:14,090
+why you can see here although we have a
+
+572
+00:25:14,090 --> 00:25:18,590
+very bright input that one like gets
+
+573
+00:25:18,590 --> 00:25:21,770
+lost through oh well if you have like a
+
+574
+00:25:21,770 --> 00:25:23,720
+gradient coming down here the gradient
+
+575
+00:25:23,720 --> 00:25:27,410
+gets you know kill over time okay so how
+
+576
+00:25:27,410 --> 00:25:30,410
+do we fix that to fix this one we simply
+
+577
+00:25:30,410 --> 00:25:34,370
+remove the matrices in this horizontal
+
+578
+00:25:34,370 --> 00:25:40,420
+operation does it make sense no yes no
+
+579
+00:25:40,420 --> 00:25:43,610
+the problem is that the next hidden
+
+580
+00:25:43,610 --> 00:25:47,630
+state will have you know its own input
+
+581
+00:25:47,630 --> 00:25:49,610
+memory coming from the previous step
+
+582
+00:25:49,610 --> 00:25:52,910
+through a matrix multiplication now this
+
+583
+00:25:52,910 --> 00:25:55,400
+matrix multiplication will affect what's
+
+584
+00:25:55,400 --> 00:25:58,760
+gonna be the gradient that comes in the
+
+585
+00:25:58,760 --> 00:26:00,140
+other direction okay
+
+586
+00:26:00,140 --> 00:26:02,630
+so whenever you have an output here you
+
+587
+00:26:02,630 --> 00:26:04,790
+have a final loss now you have the grade
+
+588
+00:26:04,790 --> 00:26:06,740
+that are gonna be going against the
+
+589
+00:26:06,740 --> 00:26:10,520
+arrows up to the input the problem is
+
+590
+00:26:10,520 --> 00:26:12,050
+that this gradient which is going
+
+591
+00:26:12,050 --> 00:26:14,690
+through the in the opposite direction of
+
+592
+00:26:14,690 --> 00:26:16,910
+these arrows will be multiplied by the
+
+593
+00:26:16,910 --> 00:26:19,510
+matrix right the transpose of the matrix
+
+594
+00:26:19,510 --> 00:26:22,460
+and again these matrices will affect
+
+595
+00:26:22,460 --> 00:26:24,410
+what is the overall norm of this
+
+596
+00:26:24,410 --> 00:26:26,030
+gradient right and it will be all
+
+597
+00:26:26,030 --> 00:26:26,810
+killing it
+
+598
+00:26:26,810 --> 00:26:28,310
+you have vanishing gradient or you're
+
+599
+00:26:28,310 --> 00:26:30,380
+gonna have exploding the gradient which
+
+600
+00:26:30,380 --> 00:26:32,690
+is going to be whenever is going to be
+
+601
+00:26:32,690 --> 00:26:35,120
+getting amplified right so in order to
+
+602
+00:26:35,120 --> 00:26:37,880
+be avoiding that we have to avoid so you
+
+603
+00:26:37,880 --> 00:26:39,830
+can see this is a very deep network so
+
+604
+00:26:39,830 --> 00:26:41,960
+recurrently our network where the first
+
+605
+00:26:41,960 --> 00:26:43,700
+deep networks back in the night is
+
+606
+00:26:43,700 --> 00:26:45,320
+actually and the word
+
+607
+00:26:45,320 --> 00:26:48,200
+depth was actually in time which and of
+
+608
+00:26:48,200 --> 00:26:49,850
+course they were facing the same issues
+
+609
+00:26:49,850 --> 00:26:52,550
+we face with deep learning in modern day
+
+610
+00:26:52,550 --> 00:26:54,350
+days where ever we were still like
+
+611
+00:26:54,350 --> 00:26:56,270
+stacking several layers we were
+
+612
+00:26:56,270 --> 00:26:58,450
+observing that the gradients get lost as
+
+613
+00:26:58,450 --> 00:27:02,920
+depth right so how do we solve gradient
+
+614
+00:27:02,920 --> 00:27:05,750
+getting lost through the depth in a
+
+615
+00:27:05,750 --> 00:27:08,770
+current days
+
+616
+00:27:09,310 --> 00:27:11,270
+skipping constant connection right the
+
+617
+00:27:11,270 --> 00:27:13,670
+receiver connections we use and
+
+618
+00:27:13,670 --> 00:27:15,530
+similarly here we can use skip
+
+619
+00:27:15,530 --> 00:27:18,410
+connections as well when we go down well
+
+620
+00:27:18,410 --> 00:27:21,860
+up in in time okay so let's see how this
+
+621
+00:27:21,860 --> 00:27:22,330
+works
+
+622
+00:27:22,330 --> 00:27:30,500
+yeah so the problem is that the
+
+623
+00:27:30,500 --> 00:27:32,480
+gradients are only going in the backward
+
+624
+00:27:32,480 --> 00:27:34,250
+paths right back
+
+625
+00:27:34,250 --> 00:27:35,500
+[Music]
+
+626
+00:27:35,500 --> 00:27:38,990
+well the gradient has to go the same way
+
+627
+00:27:38,990 --> 00:27:41,120
+it went forward by the opposite
+
+628
+00:27:41,120 --> 00:27:42,680
+direction right I mean you're computing
+
+629
+00:27:42,680 --> 00:27:45,050
+chain rule so if you have a function of
+
+630
+00:27:45,050 --> 00:27:46,970
+a function of a function then you just
+
+631
+00:27:46,970 --> 00:27:49,310
+use those functions to go back right the
+
+632
+00:27:49,310 --> 00:27:52,220
+point is that whenever you have these
+
+633
+00:27:52,220 --> 00:27:53,810
+gradients coming back they will not have
+
+634
+00:27:53,810 --> 00:27:55,790
+to go through matrices therefore also
+
+635
+00:27:55,790 --> 00:27:58,190
+the forward part has not doesn't have to
+
+636
+00:27:58,190 --> 00:28:01,250
+go through the matrices meaning that the
+
+637
+00:28:01,250 --> 00:28:03,650
+memory cannot go through matrix
+
+638
+00:28:03,650 --> 00:28:07,310
+multiplication if you don't want to have
+
+639
+00:28:07,310 --> 00:28:08,900
+this effect when you perform back
+
+640
+00:28:08,900 --> 00:28:11,770
+propagation okay
+
+641
+00:28:14,050 --> 00:28:16,100
+yeah it's gonna be worth much better
+
+642
+00:28:16,100 --> 00:28:19,420
+working I show you in the next slide
+
+643
+00:28:19,420 --> 00:28:22,539
+[Music]
+
+644
+00:28:25,960 --> 00:28:27,740
+show you next slide
+
+645
+00:28:27,740 --> 00:28:30,560
+so how do we fix this problem well
+
+646
+00:28:30,560 --> 00:28:32,270
+instead of using one recurrent neural
+
+647
+00:28:32,270 --> 00:28:34,670
+network we're gonna using for recurrent
+
+648
+00:28:34,670 --> 00:28:36,650
+neural network okay so the first
+
+649
+00:28:36,650 --> 00:28:39,650
+recurrent Network alcohol on the first
+
+650
+00:28:39,650 --> 00:28:41,510
+network is gonna be the one that goes
+
+651
+00:28:41,510 --> 00:28:43,580
+from the input to this intermediate
+
+652
+00:28:43,580 --> 00:28:46,370
+state then I have other three networks
+
+653
+00:28:46,370 --> 00:28:48,830
+and each of those are represented by
+
+654
+00:28:48,830 --> 00:28:51,410
+these three symbols 1 2 & 3
+
+655
+00:28:51,410 --> 00:28:53,390
+okay think about this as our open mouth
+
+656
+00:28:53,390 --> 00:28:56,870
+and it's like a closed mouth okay like
+
+657
+00:28:56,870 --> 00:29:02,120
+the emoji okay so if you use this kind
+
+658
+00:29:02,120 --> 00:29:04,580
+of for net for recurrent neural network
+
+659
+00:29:04,580 --> 00:29:07,520
+be regular Network you gotta have for
+
+660
+00:29:07,520 --> 00:29:09,740
+example from the input I send things
+
+661
+00:29:09,740 --> 00:29:11,600
+through in the open mouth therefore it
+
+662
+00:29:11,600 --> 00:29:14,390
+gets here I have a closed mouth here so
+
+663
+00:29:14,390 --> 00:29:16,940
+nothing goes forward then I'm gonna have
+
+664
+00:29:16,940 --> 00:29:18,920
+this open mouth here such that the
+
+665
+00:29:18,920 --> 00:29:21,500
+history goes forward so the history gets
+
+666
+00:29:21,500 --> 00:29:23,600
+sent forward without going through a
+
+667
+00:29:23,600 --> 00:29:26,360
+neural network matrix multiplication
+
+668
+00:29:26,360 --> 00:29:29,120
+it just gets through our open mouth and
+
+669
+00:29:29,120 --> 00:29:31,400
+all the other inputs find a closed mouth
+
+670
+00:29:31,400 --> 00:29:34,670
+so the hidden state will not change upon
+
+671
+00:29:34,670 --> 00:29:38,480
+new inputs okay and then here you're
+
+672
+00:29:38,480 --> 00:29:40,820
+gonna have a open mouth here such that
+
+673
+00:29:40,820 --> 00:29:43,010
+you can get the final output here then
+
+674
+00:29:43,010 --> 00:29:44,960
+the open mouth keeps going here such
+
+675
+00:29:44,960 --> 00:29:46,550
+that you have another output there and
+
+676
+00:29:46,550 --> 00:29:48,560
+then finally you get the last closed
+
+677
+00:29:48,560 --> 00:29:52,670
+mouth at the last one now if you perform
+
+678
+00:29:52,670 --> 00:29:54,620
+back prop you will have the gradients
+
+679
+00:29:54,620 --> 00:29:57,560
+flowing through the open mouth and you
+
+680
+00:29:57,560 --> 00:29:58,880
+don't get any kind of matrix
+
+681
+00:29:58,880 --> 00:30:01,250
+multiplication so now let's figure out
+
+682
+00:30:01,250 --> 00:30:04,400
+how these open mouths are represented
+
+683
+00:30:04,400 --> 00:30:07,880
+how are they instantiated in like in in
+
+684
+00:30:07,880 --> 00:30:10,010
+terms of mathematics is it clear design
+
+685
+00:30:10,010 --> 00:30:11,540
+right so now we are using open and
+
+686
+00:30:11,540 --> 00:30:13,130
+closed mouths and each of those mouths
+
+687
+00:30:13,130 --> 00:30:15,950
+is plus the the first guy here that
+
+688
+00:30:15,950 --> 00:30:17,880
+connects the input to the hidden are
+
+689
+00:30:17,880 --> 00:30:20,630
+brn ends so these on here that is a
+
+690
+00:30:20,630 --> 00:30:25,580
+gated recurrent network it's simply for
+
+691
+00:30:25,580 --> 00:30:28,560
+normal recurrent neural network combined
+
+692
+00:30:28,560 --> 00:30:32,060
+in a clever way such that you have
+
+693
+00:30:32,060 --> 00:30:34,290
+multiplicative interaction and not
+
+694
+00:30:34,290 --> 00:30:37,920
+matrix interaction is it clear so far
+
+695
+00:30:37,920 --> 00:30:39,480
+this is like intuition I haven't shown
+
+696
+00:30:39,480 --> 00:30:42,000
+you how all right so let's figure out
+
+697
+00:30:42,000 --> 00:30:45,200
+who made this and how it works okay so
+
+698
+00:30:45,200 --> 00:30:48,570
+we're gonna see now those long short
+
+699
+00:30:48,570 --> 00:30:50,820
+term memory or gated recurrent neural
+
+700
+00:30:50,820 --> 00:30:55,530
+networks so I'm sorry okay that was the
+
+701
+00:30:55,530 --> 00:30:57,270
+dude okay this is the guy who actually
+
+702
+00:30:57,270 --> 00:30:59,730
+invented this stuff actually him and his
+
+703
+00:30:59,730 --> 00:31:03,780
+students back some in 1997 and we were
+
+704
+00:31:03,780 --> 00:31:07,620
+drinking here together okay all right so
+
+705
+00:31:07,620 --> 00:31:10,650
+that is the question of a recurrent
+
+706
+00:31:10,650 --> 00:31:14,010
+neural network and on the top left are
+
+707
+00:31:14,010 --> 00:31:15,690
+you gonna see in the diagram so I just
+
+708
+00:31:15,690 --> 00:31:18,000
+make a very compact version of this
+
+709
+00:31:18,000 --> 00:31:21,330
+recurrent neural network here is going
+
+710
+00:31:21,330 --> 00:31:23,310
+to be the collection of equations that
+
+711
+00:31:23,310 --> 00:31:25,110
+are expressed in a long short term
+
+712
+00:31:25,110 --> 00:31:27,840
+memory they look a little bit dense so I
+
+713
+00:31:27,840 --> 00:31:31,170
+just draw it for you here okay let's
+
+714
+00:31:31,170 --> 00:31:32,970
+actually goes through how this stuff
+
+715
+00:31:32,970 --> 00:31:33,420
+works
+
+716
+00:31:33,420 --> 00:31:36,320
+so I'm gonna be drawing an interactive
+
+717
+00:31:36,320 --> 00:31:38,640
+animation here so you have your input
+
+718
+00:31:38,640 --> 00:31:40,500
+gate here which is going to be an affine
+
+719
+00:31:40,500 --> 00:31:41,730
+transformation so all of these are
+
+720
+00:31:41,730 --> 00:31:43,380
+recurrent Network write the same
+
+721
+00:31:43,380 --> 00:31:45,990
+equation I show you here so this input
+
+722
+00:31:45,990 --> 00:31:49,920
+transformation will be multiplying my C
+
+723
+00:31:49,920 --> 00:31:53,190
+tilde which is my candidate gate here I
+
+724
+00:31:53,190 --> 00:31:55,440
+have a don't forget gate which is
+
+725
+00:31:55,440 --> 00:31:59,820
+multiplying my previous value of my cell
+
+726
+00:31:59,820 --> 00:32:01,920
+memory and then my Poppa stylist maybe
+
+727
+00:32:01,920 --> 00:32:05,520
+don't forget previous plus input ii i'm
+
+728
+00:32:05,520 --> 00:32:08,100
+gonna show you now how it works then i
+
+729
+00:32:08,100 --> 00:32:10,560
+have my final hidden representations to
+
+730
+00:32:10,560 --> 00:32:12,600
+be multiplication element wise
+
+731
+00:32:12,600 --> 00:32:14,820
+multiplication between my output gate
+
+732
+00:32:14,820 --> 00:32:17,850
+and my you know whatever hyperbolic
+
+733
+00:32:17,850 --> 00:32:20,610
+tangent version of the cell such that
+
+734
+00:32:20,610 --> 00:32:22,740
+things are bounded and then I have
+
+735
+00:32:22,740 --> 00:32:25,350
+finally my C tilde which is my candidate
+
+736
+00:32:25,350 --> 00:32:26,880
+gate is simply
+
+737
+00:32:26,880 --> 00:32:29,160
+Anette right so you have one recurrent
+
+738
+00:32:29,160 --> 00:32:31,110
+network one that modulates the output
+
+739
+00:32:31,110 --> 00:32:33,810
+one that modulates this is don't forget
+
+740
+00:32:33,810 --> 00:32:35,730
+gate and this is the input gate
+
+741
+00:32:35,730 --> 00:32:37,830
+so all this interaction between the
+
+742
+00:32:37,830 --> 00:32:40,050
+memory and the gates is a multiplicative
+
+743
+00:32:40,050 --> 00:32:42,690
+interaction and this forget input and
+
+744
+00:32:42,690 --> 00:32:44,490
+don't forget the input and output are
+
+745
+00:32:44,490 --> 00:32:46,470
+all sigmoids and therefore they are
+
+746
+00:32:46,470 --> 00:32:48,780
+going from 0 to 1 so I can multiply by a
+
+747
+00:32:48,780 --> 00:32:50,700
+0 you have a closed mouth or you can
+
+748
+00:32:50,700 --> 00:32:53,340
+multiply by 1 if it's open mouth right
+
+749
+00:32:53,340 --> 00:32:56,040
+if you think about being having our
+
+750
+00:32:56,040 --> 00:33:00,120
+internal linear volume which is below
+
+751
+00:33:00,120 --> 00:33:03,780
+minus 5 or above plus 5 okay such that
+
+752
+00:33:03,780 --> 00:33:06,120
+you using the you use the gate in the
+
+753
+00:33:06,120 --> 00:33:09,030
+saturated area or 0 or 1 right you know
+
+754
+00:33:09,030 --> 00:33:11,940
+the sigmoid so let's see how this stuff
+
+755
+00:33:11,940 --> 00:33:13,490
+works
+
+756
+00:33:13,490 --> 00:33:16,260
+this is the output let's turn off the
+
+757
+00:33:16,260 --> 00:33:17,400
+output how do I do
+
+758
+00:33:17,400 --> 00:33:20,450
+turn off the output I simply put a 0
+
+759
+00:33:20,450 --> 00:33:23,220
+inside so let's say I have a purple
+
+760
+00:33:23,220 --> 00:33:26,310
+internal representation see I put a 0
+
+761
+00:33:26,310 --> 00:33:28,410
+there in the output gate the output is
+
+762
+00:33:28,410 --> 00:33:29,730
+going to be multiplying a 0 with
+
+763
+00:33:29,730 --> 00:33:33,690
+something you get 0 okay then let's say
+
+764
+00:33:33,690 --> 00:33:36,300
+I have a green one I have one then I
+
+765
+00:33:36,300 --> 00:33:39,090
+multiply one with the purple I get
+
+766
+00:33:39,090 --> 00:33:40,830
+purple and then finally I get the same
+
+767
+00:33:40,830 --> 00:33:44,010
+value similarly I can control the memory
+
+768
+00:33:44,010 --> 00:33:46,170
+and I can for example we set it in this
+
+769
+00:33:46,170 --> 00:33:48,150
+case I'm gonna be I have my internal
+
+770
+00:33:48,150 --> 00:33:51,240
+memory see this is purple and then I
+
+771
+00:33:51,240 --> 00:33:53,730
+have here my previous guy which is gonna
+
+772
+00:33:53,730 --> 00:33:57,450
+be blue I guess I have a zero here and
+
+773
+00:33:57,450 --> 00:33:59,010
+therefore the multiplication gives me a
+
+774
+00:33:59,010 --> 00:34:01,500
+zero there I have here a zero so
+
+775
+00:34:01,500 --> 00:34:03,000
+multiplication is gonna be giving a zero
+
+776
+00:34:03,000 --> 00:34:05,190
+at some two zeros and I get a zero
+
+777
+00:34:05,190 --> 00:34:07,020
+inside of memory so I just erase the
+
+778
+00:34:07,020 --> 00:34:09,690
+memory and you get the zero there
+
+779
+00:34:09,690 --> 00:34:12,750
+otherwise I can keep the memory I still
+
+780
+00:34:12,750 --> 00:34:15,210
+do the internal thing I did a new one
+
+781
+00:34:15,210 --> 00:34:17,550
+but I keep a wonder such that the
+
+782
+00:34:17,550 --> 00:34:19,918
+multiplication gets blue the Sun gets
+
+783
+00:34:19,918 --> 00:34:21,929
+blue and then I keep sending out my
+
+784
+00:34:21,929 --> 00:34:25,649
+bloom finally I can write such that I
+
+785
+00:34:25,649 --> 00:34:28,949
+can get a 1 in the input gate the
+
+786
+00:34:28,949 --> 00:34:31,110
+multiplication gets purple then the I
+
+787
+00:34:31,110 --> 00:34:34,350
+set a zero in the don't forget such that
+
+788
+00:34:34,350 --> 00:34:35,010
+the
+
+789
+00:34:35,010 --> 00:34:38,550
+we forget and then multiplication gives
+
+790
+00:34:38,550 --> 00:34:40,679
+me zero I some do I get purple and then
+
+791
+00:34:40,679 --> 00:34:42,960
+I get the final purple output okay so
+
+792
+00:34:42,960 --> 00:34:45,780
+here we control how to send how to write
+
+793
+00:34:45,780 --> 00:34:48,239
+in memory how to reset the memory and
+
+794
+00:34:48,239 --> 00:34:50,850
+how to output something okay so we have
+
+795
+00:34:50,850 --> 00:34:52,440
+all different operation this looks like
+
+796
+00:34:52,440 --> 00:35:04,770
+a computer - and in an yeah it is
+
+797
+00:35:04,770 --> 00:35:06,510
+assumed in this case to show you like
+
+798
+00:35:06,510 --> 00:35:08,700
+how the logic works as we are like
+
+799
+00:35:08,700 --> 00:35:11,130
+having a value inside the sigmoid has
+
+800
+00:35:11,130 --> 00:35:14,250
+been or below minus 5 or being above
+
+801
+00:35:14,250 --> 00:35:15,900
+plus 5 such that we are working as a
+
+802
+00:35:15,900 --> 00:35:27,780
+switch 0 1 switch okay the network can
+
+803
+00:35:27,780 --> 00:35:30,780
+choose to use this kind of operation to
+
+804
+00:35:30,780 --> 00:35:32,790
+me make sense I believe this is the
+
+805
+00:35:32,790 --> 00:35:34,830
+rationale behind how this network has
+
+806
+00:35:34,830 --> 00:35:37,110
+been put together the network can decide
+
+807
+00:35:37,110 --> 00:35:40,800
+to do anything it wants usually they do
+
+808
+00:35:40,800 --> 00:35:42,690
+whatever they want but this seems like
+
+809
+00:35:42,690 --> 00:35:44,850
+they can work at least if they've had to
+
+810
+00:35:44,850 --> 00:35:46,800
+saturate the gates it looks like things
+
+811
+00:35:46,800 --> 00:35:49,140
+can work pretty well so in the remaining
+
+812
+00:35:49,140 --> 00:35:51,930
+15 minutes of kind of I'm gonna be
+
+813
+00:35:51,930 --> 00:35:55,350
+showing you two notebooks I kind of went
+
+814
+00:35:55,350 --> 00:35:56,880
+a little bit faster because again there
+
+815
+00:35:56,880 --> 00:35:58,770
+is much more to be seen here in the
+
+816
+00:35:58,770 --> 00:36:04,220
+notebooks so yeah
+
+817
+00:36:10,140 --> 00:36:14,880
+so this the the actual weight the actual
+
+818
+00:36:14,880 --> 00:36:17,440
+gradient you care here is gonna be the
+
+819
+00:36:17,440 --> 00:36:19,359
+gradient with respect to previous C's
+
+820
+00:36:19,359 --> 00:36:21,970
+right the thing you care is gonna be
+
+821
+00:36:21,970 --> 00:36:23,619
+basically the partial derivative of the
+
+822
+00:36:23,619 --> 00:36:25,000
+current seen with respect to previous
+
+823
+00:36:25,000 --> 00:36:27,880
+C's such that you if you have the
+
+824
+00:36:27,880 --> 00:36:30,160
+original initial C here and you have
+
+825
+00:36:30,160 --> 00:36:33,040
+multiple C over time you want to change
+
+826
+00:36:33,040 --> 00:36:35,140
+something in the original C you still
+
+827
+00:36:35,140 --> 00:36:36,760
+have the gradient coming down all the
+
+828
+00:36:36,760 --> 00:36:39,130
+way until the first C which comes down
+
+829
+00:36:39,130 --> 00:36:43,740
+to getting gradients through that matrix
+
+830
+00:36:44,160 --> 00:36:46,660
+WC here right so if you want to change
+
+831
+00:36:46,660 --> 00:36:48,430
+those weights here you just go through
+
+832
+00:36:48,430 --> 00:36:52,089
+the chain of multiplications that are
+
+833
+00:36:52,089 --> 00:36:55,300
+not involving any matrix multiplication
+
+834
+00:36:55,300 --> 00:36:56,890
+as such that you when you get the
+
+835
+00:36:56,890 --> 00:36:58,690
+gradient it still gets multiplied by one
+
+836
+00:36:58,690 --> 00:37:00,490
+all the time and it gets down to
+
+837
+00:37:00,490 --> 00:37:03,460
+whatever we want to do okay did I answer
+
+838
+00:37:03,460 --> 00:37:05,760
+your question
+
+839
+00:37:09,150 --> 00:37:13,150
+so the matrices will change the
+
+840
+00:37:13,150 --> 00:37:16,660
+amplitude of your gradient right so if
+
+841
+00:37:16,660 --> 00:37:19,210
+you have like these largest eigenvalue
+
+842
+00:37:19,210 --> 00:37:22,000
+being you know 0.0001 every time you
+
+843
+00:37:22,000 --> 00:37:23,490
+multiply you get the norm of this vector
+
+844
+00:37:23,490 --> 00:37:26,079
+getting killed right so you have like an
+
+845
+00:37:26,079 --> 00:37:29,319
+exponential decay in this case if my
+
+846
+00:37:29,319 --> 00:37:31,569
+forget gate is actually always equal to
+
+847
+00:37:31,569 --> 00:37:35,400
+1 then you get C equal C minus team
+
+848
+00:37:35,400 --> 00:37:37,510
+derivative what is the partial
+
+849
+00:37:37,510 --> 00:37:41,859
+derivative of C T with respect to what
+
+850
+00:37:41,859 --> 00:37:43,299
+is the partial derivative of C T with
+
+851
+00:37:43,299 --> 00:37:46,900
+respect to C minus t minus 1 1 right so
+
+852
+00:37:46,900 --> 00:37:48,579
+the parts of the relative that is the
+
+853
+00:37:48,579 --> 00:37:50,020
+thing that you actually multiply every
+
+854
+00:37:50,020 --> 00:37:52,390
+time there's gonna be 1 so output
+
+855
+00:37:52,390 --> 00:37:54,609
+gradient output gradients can be input
+
+856
+00:37:54,609 --> 00:37:57,609
+gradients right yeah i'll pavillions
+
+857
+00:37:57,609 --> 00:37:58,809
+gonna be implicit because it would apply
+
+858
+00:37:58,809 --> 00:38:01,510
+the output gradient by the derivative of
+
+859
+00:38:01,510 --> 00:38:03,109
+this module right if the
+
+860
+00:38:03,109 --> 00:38:05,599
+this module is e1 then the thing that is
+
+861
+00:38:05,599 --> 00:38:08,749
+here keeps going that is the rationale
+
+862
+00:38:08,749 --> 00:38:14,660
+behind this now this is just for drawing
+
+863
+00:38:14,660 --> 00:38:20,599
+purposes I assumed it's like a switch
+
+864
+00:38:20,599 --> 00:38:24,710
+okay such that I can make things you
+
+865
+00:38:24,710 --> 00:38:27,019
+know you have a switch on and off to
+
+866
+00:38:27,019 --> 00:38:29,089
+show like how it should be working maybe
+
+867
+00:38:29,089 --> 00:38:30,380
+doesn't work like that but still it
+
+868
+00:38:30,380 --> 00:38:46,579
+works it can work this way right yeah so
+
+869
+00:38:46,579 --> 00:38:48,049
+that's the implementation of pro
+
+870
+00:38:48,049 --> 00:38:50,089
+question is gonna be simply you just pad
+
+871
+00:38:50,089 --> 00:38:52,400
+all the other sync when sees with zeros
+
+872
+00:38:52,400 --> 00:38:55,069
+before the sequence so if you have
+
+873
+00:38:55,069 --> 00:38:57,980
+several several sequences yes several
+
+874
+00:38:57,980 --> 00:38:59,920
+sequences that are of a different length
+
+875
+00:38:59,920 --> 00:39:03,049
+you just put them all aligned to the
+
+876
+00:39:03,049 --> 00:39:03,619
+right
+
+877
+00:39:03,619 --> 00:39:07,099
+and then you put some zeros here okay
+
+878
+00:39:07,099 --> 00:39:08,960
+such that you always have in the last
+
+879
+00:39:08,960 --> 00:39:12,049
+column the latest element if you put two
+
+880
+00:39:12,049 --> 00:39:14,599
+zeros here it's gonna be a mess in right
+
+881
+00:39:14,599 --> 00:39:16,039
+in the code if you put the zeros in the
+
+882
+00:39:16,039 --> 00:39:17,299
+in the beginning you just stop doing
+
+883
+00:39:17,299 --> 00:39:19,279
+back propagation when you hit the last
+
+884
+00:39:19,279 --> 00:39:21,319
+symbol right so you start from here you
+
+885
+00:39:21,319 --> 00:39:23,480
+go back here so you go forward then you
+
+886
+00:39:23,480 --> 00:39:25,460
+go back prop and stop whenever you
+
+887
+00:39:25,460 --> 00:39:27,289
+actually reach the end of your sequence
+
+888
+00:39:27,289 --> 00:39:29,599
+if you pad on the other side you get a
+
+889
+00:39:29,599 --> 00:39:33,289
+bunch of drop there in the next ten
+
+890
+00:39:33,289 --> 00:39:34,730
+minutes so you're gonna be seen two
+
+891
+00:39:34,730 --> 00:39:37,369
+notebooks if you don't have other
+
+892
+00:39:37,369 --> 00:39:45,049
+questions okay wow you're so quiet okay
+
+893
+00:39:45,049 --> 00:39:47,509
+so we're gonna be going now for sequence
+
+894
+00:39:47,509 --> 00:39:49,970
+classification alright so in this case
+
+895
+00:39:49,970 --> 00:39:52,730
+I'm gonna be I just really stuff loud
+
+896
+00:39:52,730 --> 00:39:54,589
+out loud the goal is to classify a
+
+897
+00:39:54,589 --> 00:39:57,499
+sequence of elements sequence elements
+
+898
+00:39:57,499 --> 00:40:00,259
+and targets are represented locally
+
+899
+00:40:00,259 --> 00:40:03,710
+input vectors with only one nonzero bit
+
+900
+00:40:03,710 --> 00:40:05,660
+so it's a one hot encoding the sequence
+
+901
+00:40:05,660 --> 00:40:07,530
+starts with a B for beginning and end
+
+902
+00:40:07,530 --> 00:40:10,770
+efore end and otherwise consists of a
+
+903
+00:40:10,770 --> 00:40:13,380
+randomly chosen symbols from a set a b c
+
+904
+00:40:13,380 --> 00:40:16,370
+and d which are some kind of noise
+
+905
+00:40:16,370 --> 00:40:19,350
+expect for two elements in position t1
+
+906
+00:40:19,350 --> 00:40:22,380
+and t2 this position can be either or X
+
+907
+00:40:22,380 --> 00:40:27,120
+or Y in for the hard difficulty level
+
+908
+00:40:27,120 --> 00:40:29,460
+you have for example that the sequence
+
+909
+00:40:29,460 --> 00:40:31,770
+length length is chose randomly between
+
+910
+00:40:31,770 --> 00:40:35,220
+100 and 110 10 t1 is randomly chosen
+
+911
+00:40:35,220 --> 00:40:37,680
+between 10 and 20 Tinto is randomly
+
+912
+00:40:37,680 --> 00:40:40,530
+chosen between 50 and 60 there are four
+
+913
+00:40:40,530 --> 00:40:44,640
+sequences classes QRS nu which depends
+
+914
+00:40:44,640 --> 00:40:47,010
+on the temporal order of x and y so if
+
+915
+00:40:47,010 --> 00:40:50,880
+you have X X you can be getting a Q x
+
+916
+00:40:50,880 --> 00:40:53,520
+and y you get an R Y and X you get an S
+
+917
+00:40:53,520 --> 00:40:55,350
+and YY with you so we're going to be
+
+918
+00:40:55,350 --> 00:40:57,750
+doing a sequence classification based on
+
+919
+00:40:57,750 --> 00:41:01,590
+the X and y or whatever those to import
+
+920
+00:41:01,590 --> 00:41:03,720
+to these kind of triggers okay
+
+921
+00:41:03,720 --> 00:41:05,010
+and in the middle in the middle you can
+
+922
+00:41:05,010 --> 00:41:08,370
+have ABCD in random positions like you
+
+923
+00:41:08,370 --> 00:41:10,650
+know randomly generated is it clear so
+
+924
+00:41:10,650 --> 00:41:12,810
+far so we do cast a classification of
+
+925
+00:41:12,810 --> 00:41:15,240
+sequences where you may have these x and
+
+926
+00:41:15,240 --> 00:41:23,180
+y's or X X or Y or Y X so in this case
+
+927
+00:41:23,210 --> 00:41:27,180
+I'm showing you first the first input so
+
+928
+00:41:27,180 --> 00:41:29,460
+the return type is a tuple of sequence
+
+929
+00:41:29,460 --> 00:41:32,670
+of two which is going to be what is the
+
+930
+00:41:32,670 --> 00:41:36,780
+output of this example generator and so
+
+931
+00:41:36,780 --> 00:41:38,670
+let's see what is what is this thing
+
+932
+00:41:38,670 --> 00:41:43,050
+here so this is my data I'm going to be
+
+933
+00:41:43,050 --> 00:41:45,750
+feeding to the network so I have one two
+
+934
+00:41:45,750 --> 00:41:48,030
+three four five six seven eight there
+
+935
+00:41:48,030 --> 00:41:51,270
+are eight different symbols here in a
+
+936
+00:41:51,270 --> 00:41:54,180
+row every time why there are eight we
+
+937
+00:41:54,180 --> 00:41:59,850
+have x and y a b c and d beginning and
+
+938
+00:41:59,850 --> 00:42:02,970
+end right so we have one hot out of you
+
+939
+00:42:02,970 --> 00:42:05,520
+know eight characters and then i have a
+
+940
+00:42:05,520 --> 00:42:08,400
+sequence of rows which are my sequence
+
+941
+00:42:08,400 --> 00:42:11,520
+of symbols okay in this case you can see
+
+942
+00:42:11,520 --> 00:42:12,980
+here i have a beginning with all zeros
+
+943
+00:42:12,980 --> 00:42:17,700
+why is all zeros padding right so in
+
+944
+00:42:17,700 --> 00:42:19,260
+this case the sequence was shorter than
+
+945
+00:42:19,260 --> 00:42:21,090
+the expect the maximum sequence in the
+
+946
+00:42:21,090 --> 00:42:21,329
+bed
+
+947
+00:42:21,329 --> 00:42:24,839
+and then the first first sequence has an
+
+948
+00:42:24,839 --> 00:42:29,279
+extra zero item at the beginning in them
+
+949
+00:42:29,279 --> 00:42:32,640
+you're gonna have like in this case the
+
+950
+00:42:32,640 --> 00:42:34,859
+second item is of the two a pole to pole
+
+951
+00:42:34,859 --> 00:42:38,099
+is the corresponding best class for
+
+952
+00:42:38,099 --> 00:42:41,160
+example I have a batch size of 32 and
+
+953
+00:42:41,160 --> 00:42:43,829
+then I'm gonna have an output size of 4
+
+954
+00:42:43,829 --> 00:42:51,930
+y 4 Q R whatever right the QRS you okay
+
+955
+00:42:51,930 --> 00:42:55,619
+so I have 4 a 4 dimensional target
+
+956
+00:42:55,619 --> 00:42:57,450
+vector and I have a sequence of 8
+
+957
+00:42:57,450 --> 00:43:02,160
+dimensional vectors as input okay so
+
+958
+00:43:02,160 --> 00:43:04,499
+let's see how this sequence looks like
+
+959
+00:43:04,499 --> 00:43:06,049
+in this case is gonna be the beginning
+
+960
+00:43:06,049 --> 00:43:12,779
+BX CX CBE so X X let's see X X X X is Q
+
+961
+00:43:12,779 --> 00:43:15,059
+right so we have our Q sequence and
+
+962
+00:43:15,059 --> 00:43:18,569
+that's why the final target is a Q the 1
+
+963
+00:43:18,569 --> 00:43:22,079
+0 0 0 and then you're gonna see B B X C
+
+964
+00:43:22,079 --> 00:43:25,019
+so the second item and the second last
+
+965
+00:43:25,019 --> 00:43:27,660
+is gonna be B lowercase B you can see
+
+966
+00:43:27,660 --> 00:43:30,390
+here the second item and the second last
+
+967
+00:43:30,390 --> 00:43:33,239
+item is going to be a be okay all right
+
+968
+00:43:33,239 --> 00:43:36,390
+so let's now create a recurrent Network
+
+969
+00:43:36,390 --> 00:43:39,180
+in a very quick way so here I can simply
+
+970
+00:43:39,180 --> 00:43:41,249
+say my recurrent network is going to be
+
+971
+00:43:41,249 --> 00:43:44,910
+torch and an RNN and I'm gonna be using
+
+972
+00:43:44,910 --> 00:43:47,369
+a reader network really non-linearity
+
+973
+00:43:47,369 --> 00:43:51,180
+and then I have my final linear layer in
+
+974
+00:43:51,180 --> 00:43:52,709
+the other case I'm gonna be using a led
+
+975
+00:43:52,709 --> 00:43:55,349
+STM and then I'm gonna have a final
+
+976
+00:43:55,349 --> 00:43:57,119
+inner layer so I just execute these guys
+
+977
+00:43:57,119 --> 00:44:01,170
+I have my training loop and I'm gonna be
+
+978
+00:44:01,170 --> 00:44:07,920
+training for 10 books so in the training
+
+979
+00:44:07,920 --> 00:44:09,869
+group you can be always looking for
+
+980
+00:44:09,869 --> 00:44:13,259
+those five different steps first step is
+
+981
+00:44:13,259 --> 00:44:16,769
+gonna be get the data inside the model
+
+982
+00:44:16,769 --> 00:44:18,900
+right so that's step number one what is
+
+983
+00:44:18,900 --> 00:44:25,019
+step number two there are five steps we
+
+984
+00:44:25,019 --> 00:44:30,669
+remember hello
+
+985
+00:44:30,669 --> 00:44:33,319
+you feel that you feed the network if
+
+986
+00:44:33,319 --> 00:44:35,089
+you feed the network with some data then
+
+987
+00:44:35,089 --> 00:44:38,779
+what do you do you compute the loss okay
+
+988
+00:44:38,779 --> 00:44:41,539
+then we have compute step to compute the
+
+989
+00:44:41,539 --> 00:44:47,539
+loss fantastic number three is zero the
+
+990
+00:44:47,539 --> 00:44:52,549
+cash right then number four which is
+
+991
+00:44:52,549 --> 00:45:05,809
+computing the off yes lost dog backwards
+
+992
+00:45:05,809 --> 00:45:09,699
+lost not backward don't compute the
+
+993
+00:45:09,699 --> 00:45:13,099
+partial derivative of the loss with
+
+994
+00:45:13,099 --> 00:45:16,449
+respect to the network's parameters yeah
+
+995
+00:45:16,449 --> 00:45:20,959
+here backward finally number five which
+
+996
+00:45:20,959 --> 00:45:27,380
+is step in opposite direction of the
+
+997
+00:45:27,380 --> 00:45:29,809
+gradient okay all right those are the
+
+998
+00:45:29,809 --> 00:45:31,819
+five steps you always want to see in any
+
+999
+00:45:31,819 --> 00:45:33,619
+training blueprint if someone is missing
+
+1000
+00:45:33,619 --> 00:45:37,909
+then you're up okay so we try now
+
+1001
+00:45:37,909 --> 00:45:40,459
+the RNN and the lsdm and you get
+
+1002
+00:45:40,459 --> 00:45:42,469
+something looks like this
+
+1003
+00:45:42,469 --> 00:45:46,699
+so our NN goes up to 50% in accuracy and
+
+1004
+00:45:46,699 --> 00:45:55,929
+then the lsdm got 100% okay oh okay
+
+1005
+00:45:56,439 --> 00:45:59,689
+first of all how many weights does this
+
+1006
+00:45:59,689 --> 00:46:06,019
+lsdm have compared to the RN n four
+
+1007
+00:46:06,019 --> 00:46:07,909
+times more weights right so it's not a
+
+1008
+00:46:07,909 --> 00:46:11,059
+fair comparison I would say because lsdm
+
+1009
+00:46:11,059 --> 00:46:13,849
+is simply for rnns combined somehow
+
+1010
+00:46:13,849 --> 00:46:16,819
+right so this is a two layer neural
+
+1011
+00:46:16,819 --> 00:46:18,589
+network whereas the other one is at one
+
+1012
+00:46:18,589 --> 00:46:20,659
+layer right always both ever like it has
+
+1013
+00:46:20,659 --> 00:46:22,549
+one hidden layer they are an end if
+
+1014
+00:46:22,549 --> 00:46:25,009
+Alice TM we can think about having two
+
+1015
+00:46:25,009 --> 00:46:29,949
+hidden so again one layer two layers
+
+1016
+00:46:29,949 --> 00:46:33,199
+well one hidden to lead in one set of
+
+1017
+00:46:33,199 --> 00:46:35,299
+parameters four sets of the same numbers
+
+1018
+00:46:35,299 --> 00:46:37,610
+like okay not fair okay anyway
+
+1019
+00:46:37,610 --> 00:46:40,730
+let's go with hundred iterations okay so
+
+1020
+00:46:40,730 --> 00:46:43,610
+now I just go with 100 iterations and I
+
+1021
+00:46:43,610 --> 00:46:47,420
+show you how if they work or not and
+
+1022
+00:46:47,420 --> 00:46:49,490
+also when I be just clicking things such
+
+1023
+00:46:49,490 --> 00:46:53,860
+that we have time to go through stuff
+
+1024
+00:46:53,860 --> 00:46:56,000
+okay now my computer's going to be
+
+1025
+00:46:56,000 --> 00:47:00,860
+complaining all right so again what are
+
+1026
+00:47:00,860 --> 00:47:02,990
+the five types of operations like five
+
+1027
+00:47:02,990 --> 00:47:04,220
+okay now is already done
+
+1028
+00:47:04,220 --> 00:47:06,860
+sorry I was going to do okay so this is
+
+1029
+00:47:06,860 --> 00:47:11,090
+the RNN right RNN and finally actually
+
+1030
+00:47:11,090 --> 00:47:16,280
+gave to 100% okay so iron and it just
+
+1031
+00:47:16,280 --> 00:47:18,080
+let it more time like a little bit more
+
+1032
+00:47:18,080 --> 00:47:20,030
+longer training actually works the other
+
+1033
+00:47:20,030 --> 00:47:22,790
+one okay and here you can see that we
+
+1034
+00:47:22,790 --> 00:47:26,060
+got 100% in twenty eight bucks okay the
+
+1035
+00:47:26,060 --> 00:47:28,070
+other case we got 2,100 percent in
+
+1036
+00:47:28,070 --> 00:47:30,650
+roughly twice as long
+
+1037
+00:47:30,650 --> 00:47:32,750
+twice longer at a time okay so let's
+
+1038
+00:47:32,750 --> 00:47:35,690
+first see how they perform here so I
+
+1039
+00:47:35,690 --> 00:47:39,800
+have this sequence BC y dy Dae which is
+
+1040
+00:47:39,800 --> 00:47:42,200
+au sequence and then we ask the network
+
+1041
+00:47:42,200 --> 00:47:43,820
+and he actually meant for actually like
+
+1042
+00:47:43,820 --> 00:47:46,760
+labels it as you okay so below we're
+
+1043
+00:47:46,760 --> 00:47:49,190
+gonna be seeing something very cute so
+
+1044
+00:47:49,190 --> 00:47:51,140
+in this case we were using sequences
+
+1045
+00:47:51,140 --> 00:47:54,110
+that are very very very very small right
+
+1046
+00:47:54,110 --> 00:47:56,870
+so even the RNN is able to train on
+
+1047
+00:47:56,870 --> 00:47:59,930
+these small sequences so what is the
+
+1048
+00:47:59,930 --> 00:48:02,390
+point of using a lsdm well we can first
+
+1049
+00:48:02,390 --> 00:48:06,230
+of all increase the difficulty of the
+
+1050
+00:48:06,230 --> 00:48:07,430
+training part and we're gonna see that
+
+1051
+00:48:07,430 --> 00:48:09,350
+the RN ends can be miserably failing
+
+1052
+00:48:09,350 --> 00:48:13,280
+whereas the lsdm keeps working in this
+
+1053
+00:48:13,280 --> 00:48:16,700
+visualization part below okay I train a
+
+1054
+00:48:16,700 --> 00:48:19,790
+network now Alice and lsdm now with the
+
+1055
+00:48:19,790 --> 00:48:22,820
+moderate level which has eighty symbols
+
+1056
+00:48:22,820 --> 00:48:26,000
+rather than eight or ten ten symbols so
+
+1057
+00:48:26,000 --> 00:48:28,490
+you can see here how this model actually
+
+1058
+00:48:28,490 --> 00:48:31,430
+managed to succeed at the end although
+
+1059
+00:48:31,430 --> 00:48:35,480
+there is like a very big spike and I'm
+
+1060
+00:48:35,480 --> 00:48:38,870
+gonna be now drawing the value of the
+
+1061
+00:48:38,870 --> 00:48:42,020
+cell state over time okay so I'm going
+
+1062
+00:48:42,020 --> 00:48:43,970
+to be input in our sequence of eighty
+
+1063
+00:48:43,970 --> 00:48:46,580
+symbols and I'm gonna be showing you
+
+1064
+00:48:46,580 --> 00:48:49,090
+what is the value of the hidden state
+
+1065
+00:48:49,090 --> 00:48:50,910
+hidden State
+
+1066
+00:48:50,910 --> 00:48:53,330
+so in this case I'm gonna be showing you
+
+1067
+00:48:53,330 --> 00:48:54,829
+[Music]
+
+1068
+00:48:54,829 --> 00:48:56,910
+hidden hold on
+
+1069
+00:48:56,910 --> 00:48:58,259
+yeah I'm gonna be showing I'm gonna send
+
+1070
+00:48:58,259 --> 00:49:01,140
+my input through a hyperbolic tangent
+
+1071
+00:49:01,140 --> 00:49:04,079
+such that if you're below minus 2.5 I'm
+
+1072
+00:49:04,079 --> 00:49:06,029
+gonna be mapping to minus 1 if you're
+
+1073
+00:49:06,029 --> 00:49:09,809
+above 2.5 you get mapped to plus 1 more
+
+1074
+00:49:09,809 --> 00:49:12,329
+or less and so let's see how this stuff
+
+1075
+00:49:12,329 --> 00:49:14,579
+looks so in this case here you can see
+
+1076
+00:49:14,579 --> 00:49:18,029
+that this specific hidden layer picked
+
+1077
+00:49:18,029 --> 00:49:25,289
+on the X here and then it became red
+
+1078
+00:49:25,289 --> 00:49:27,720
+until you got the other X right so this
+
+1079
+00:49:27,720 --> 00:49:30,180
+is visualizing the internal state of the
+
+1080
+00:49:30,180 --> 00:49:33,710
+LSD and so you can see that in specific
+
+1081
+00:49:33,710 --> 00:49:36,980
+unit because in this case I use hidden
+
+1082
+00:49:36,980 --> 00:49:39,599
+representation like hidden dimension of
+
+1083
+00:49:39,599 --> 00:49:44,400
+10 and so in this case the 1 2 3 4 5 the
+
+1084
+00:49:44,400 --> 00:49:47,700
+fifth hidden unit of the cell lay the
+
+1085
+00:49:47,700 --> 00:49:50,250
+5th cell actually is trigger by
+
+1086
+00:49:50,250 --> 00:49:52,829
+observing the first X and then it goes
+
+1087
+00:49:52,829 --> 00:49:55,319
+quiet after seen the other acts this
+
+1088
+00:49:55,319 --> 00:49:58,410
+allows me to basically you know take
+
+1089
+00:49:58,410 --> 00:50:01,440
+care of I mean recognize if the sequence
+
+1090
+00:50:01,440 --> 00:50:07,440
+is ru OPRS okay does it make sense okay
+
+1091
+00:50:07,440 --> 00:50:12,150
+oh this one more notebook I'm gonna be
+
+1092
+00:50:12,150 --> 00:50:14,519
+showing just quickly which is the Eco
+
+1093
+00:50:14,519 --> 00:50:19,200
+data in this case I'm gonna be in South
+
+1094
+00:50:19,200 --> 00:50:22,410
+corner I'm gonna have a network echo in
+
+1095
+00:50:22,410 --> 00:50:24,839
+whatever I'm saying so if I say
+
+1096
+00:50:24,839 --> 00:50:27,059
+something I asked a network to say if I
+
+1097
+00:50:27,059 --> 00:50:28,769
+say something I asked my neighbor to say
+
+1098
+00:50:28,769 --> 00:50:30,960
+if I say something I ask ok Anderson
+
+1099
+00:50:30,960 --> 00:50:34,710
+right ok so in this case here and I'll
+
+1100
+00:50:34,710 --> 00:50:42,150
+be inputting this is the first sequence
+
+1101
+00:50:42,150 --> 00:50:46,829
+is going to be 0 1 1 1 1 0 and you'll
+
+1102
+00:50:46,829 --> 00:50:50,579
+have the same one here 0 1 1 1 1 0 and I
+
+1103
+00:50:50,579 --> 00:50:55,170
+have 1 0 1 1 0 1 etc right so in this
+
+1104
+00:50:55,170 --> 00:50:57,259
+case if you want to output something
+
+1105
+00:50:57,259 --> 00:50:58,890
+after some
+
+1106
+00:50:58,890 --> 00:51:00,900
+right this in this case is three time
+
+1107
+00:51:00,900 --> 00:51:03,589
+step after you have to have some kind of
+
+1108
+00:51:03,589 --> 00:51:06,809
+short-term memory where you keep in mind
+
+1109
+00:51:06,809 --> 00:51:08,849
+what I just said where you keep in mind
+
+1110
+00:51:08,849 --> 00:51:11,780
+what I just said where you keep in mind
+
+1111
+00:51:11,780 --> 00:51:13,220
+[Music]
+
+1112
+00:51:13,220 --> 00:51:16,890
+what I just said yeah that's correct so
+
+1113
+00:51:16,890 --> 00:51:19,140
+you know pirating actually requires
+
+1114
+00:51:19,140 --> 00:51:22,099
+having some kind of working memory
+
+1115
+00:51:22,099 --> 00:51:24,269
+whereas the other one the language model
+
+1116
+00:51:24,269 --> 00:51:27,569
+which it was prompted prompted to say
+
+1117
+00:51:27,569 --> 00:51:31,829
+something that I haven't already said
+
+1118
+00:51:31,829 --> 00:51:33,539
+right so that was a different kind of
+
+1119
+00:51:33,539 --> 00:51:35,190
+task you actually had to predict what is
+
+1120
+00:51:35,190 --> 00:51:38,700
+the most likely next word in keynote you
+
+1121
+00:51:38,700 --> 00:51:40,890
+cannot be always right right but this
+
+1122
+00:51:40,890 --> 00:51:42,329
+one you can always be right you know
+
+1123
+00:51:42,329 --> 00:51:46,440
+this is there is no random stuff anyhow
+
+1124
+00:51:46,440 --> 00:51:49,079
+so I have my first batch here and then
+
+1125
+00:51:49,079 --> 00:51:51,000
+the sec the white patch which is the
+
+1126
+00:51:51,000 --> 00:51:53,549
+same similar thing which is shifted over
+
+1127
+00:51:53,549 --> 00:51:57,269
+time and then we have we have to chunk
+
+1128
+00:51:57,269 --> 00:52:01,319
+this long long long sequence so before I
+
+1129
+00:52:01,319 --> 00:52:03,059
+was sending a whole sequence inside the
+
+1130
+00:52:03,059 --> 00:52:05,250
+network and I was enforcing the final
+
+1131
+00:52:05,250 --> 00:52:07,230
+target to be something right in this
+
+1132
+00:52:07,230 --> 00:52:09,569
+case I had to chunk if the sequence goes
+
+1133
+00:52:09,569 --> 00:52:11,309
+this direction I had to chunk my long
+
+1134
+00:52:11,309 --> 00:52:13,319
+sequence in little chunks and then you
+
+1135
+00:52:13,319 --> 00:52:15,990
+have to fill the first chunk keep trace
+
+1136
+00:52:15,990 --> 00:52:18,869
+of whatever is the hidden state send a
+
+1137
+00:52:18,869 --> 00:52:21,480
+new chunk where you feed and initially
+
+1138
+00:52:21,480 --> 00:52:23,549
+as the initial hidden state the output
+
+1139
+00:52:23,549 --> 00:52:25,109
+of this chant right so you feed this
+
+1140
+00:52:25,109 --> 00:52:28,319
+chunk you have a final hidden state then
+
+1141
+00:52:28,319 --> 00:52:31,920
+you feed this chunk and as you put you
+
+1142
+00:52:31,920 --> 00:52:33,960
+have to put these two as input to the
+
+1143
+00:52:33,960 --> 00:52:36,180
+internal memory right now you feed the
+
+1144
+00:52:36,180 --> 00:52:38,430
+next chunk where you put this one as
+
+1145
+00:52:38,430 --> 00:52:42,269
+input as to the internal state and you
+
+1146
+00:52:42,269 --> 00:52:44,670
+we are going to be comparing here RNN
+
+1147
+00:52:44,670 --> 00:52:51,450
+with analyst TMS I think so at the end
+
+1148
+00:52:51,450 --> 00:52:57,059
+here you can see that okay we managed to
+
+1149
+00:52:57,059 --> 00:53:00,210
+actually get we are an n/a accuracy that
+
+1150
+00:53:00,210 --> 00:53:02,789
+goes 100 100 percent then if you are
+
+1151
+00:53:02,789 --> 00:53:05,190
+starting now to mess with the size of
+
+1152
+00:53:05,190 --> 00:53:08,220
+the memory chunk with a memory interval
+
+1153
+00:53:08,220 --> 00:53:09,079
+you can be seen
+
+1154
+00:53:09,079 --> 00:53:11,619
+with the lsdm you can keep this memory
+
+1155
+00:53:11,619 --> 00:53:13,880
+for a long time as long as you have
+
+1156
+00:53:13,880 --> 00:53:16,399
+enough capacity the RNN after you reach
+
+1157
+00:53:16,399 --> 00:53:18,380
+some kind of length you start forgetting
+
+1158
+00:53:18,380 --> 00:53:22,880
+what happened in the past and it was
+
+1159
+00:53:22,880 --> 00:53:26,599
+pretty much everything for today so stay
+
+1160
+00:53:26,599 --> 00:53:29,809
+warm wash your hands and I'll see you
+
+1161
+00:53:29,809 --> 00:53:30,980
+next week bye bye
+
+1162
+00:53:30,980 --> 00:53:34,929
+[Music]
+
