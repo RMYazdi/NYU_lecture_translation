@@ -8,11 +8,12 @@ a lot of materials so I will try not to
 
 3
 00:00:03,959 --> 00:00:06,060
-run but then yesterday young scooped me
+run but then yesterday 
+n scooped me
 
 4
 00:00:06,060 --> 00:00:08,309
-completely so young talked about exactly
+completely so Yann talked about exactly
 
 5
 00:00:08,309 --> 00:00:09,780
@@ -36,7 +37,7 @@ so I will just try to be a little bit
 
 10
 00:00:20,640 --> 00:00:21,420
-faster than you sir
+faster than used to.***
 
 11
 00:00:21,420 --> 00:00:23,369
@@ -64,7 +65,7 @@ what type of signal is a sequence
 
 17
 00:00:39,890 --> 00:00:42,149
-temporal is a temporal component but we
+temporal.. there is a temporal component but we
 
 18
 00:00:42,149 --> 00:00:44,219
@@ -76,23 +77,23 @@ component how what are they called
 
 20
 00:00:46,590 --> 00:00:49,350
-what dimensional what is the dimension
+what dimensional what is the dimensional
 
 21
 00:00:49,350 --> 00:00:53,010
-of that kind of signal so on the
+ of that kind of signal so on
 
 22
 00:00:53,010 --> 00:00:55,320
-convolutional net lesson we have seen
+convolutional net **lets know we have seen
 
 23
 00:00:55,320 --> 00:00:57,660
-that a signal could be one this signal
+that a signal could 1d signal
 
 24
 00:00:57,660 --> 00:00:59,969
-to this signal 3d signal based on the
+ 2d signal 3d signal based on the
 
 25
 00:00:59,969 --> 00:01:01,859
@@ -100,7 +101,7 @@ domain and the domain is what you map
 
 26
 00:01:01,859 --> 00:01:06,270
-from to go to right so temporal handling
+from to go to right? so temporal handling
 
 27
 00:01:06,270 --> 00:01:08,130
@@ -108,7 +109,7 @@ sequential sequences of data is
 
 28
 00:01:08,130 --> 00:01:10,580
-basically dealing with one the data
+basically dealing with 1D data
 
 29
 00:01:10,580 --> 00:01:12,630
@@ -200,7 +201,7 @@ there is no other input instead when we
 
 51
 00:02:08,419 --> 00:02:10,699
-are talking about our men we are gonna
+are talking about RNN we are gonna
 
 52
 00:02:10,699 --> 00:02:12,590
@@ -232,7 +233,7 @@ sequential logic whereas you have an
 
 59
 00:02:26,750 --> 00:02:28,640
-internal state the onion is the
+internal state e??**** the onion is th
 
 60
 00:02:28,640 --> 00:02:31,580
@@ -276,7 +277,7 @@ okay that's the big difference yeah
 
 70
 00:02:54,940 --> 00:02:58,040
-vanilla is in American term for saying
+why is the feed-forward called vanilla? vanilla is in American term for saying
 
 71
 00:02:58,040 --> 00:03:00,640
@@ -296,7 +297,7 @@ an ice cream which is doesn't have a
 
 75
 00:03:11,390 --> 00:03:12,799
-taste it's gonna be fury laughter which
+taste it's gonna be fury laughter  which
 
 76
 00:03:12,799 --> 00:03:15,950
@@ -320,11 +321,11 @@ all right so oh so let's see what does
 
 81
 00:03:28,360 --> 00:03:30,340
-it change this with young representation
+it change this with Yann representation
 
 82
 00:03:30,340 --> 00:03:32,760
-so young draws those kind of little
+so Yann draws those kind of little
 
 83
 00:03:32,760 --> 00:03:35,560
@@ -332,11 +333,11 @@ funky things here which represent a
 
 84
 00:03:35,560 --> 00:03:38,170
-mapping between a TENS tensor to another
+mapping between a  tensor to another
 
 85
 00:03:38,170 --> 00:03:39,970
-painter from one a vector to another
+tensor from one a vector to another
 
 86
 00:03:39,970 --> 00:03:41,800
@@ -356,19 +357,19 @@ representation so that actually
 
 90
 00:03:48,070 --> 00:03:50,620
-represent my fine transformation so my
+represent my affine transformation so my
 
 91
 00:03:50,620 --> 00:03:52,780
-rotation Plus this question then you
+rotation plus suqashing**? then you
 
 92
 00:03:52,780 --> 00:03:54,130
-have the heater representation that you
+have the hidden** representation that you
 
 93
 00:03:54,130 --> 00:03:56,050
-have another rotation is question then
+have another rotation and suqashing then
 
 94
 00:03:56,050 --> 00:03:57,850
@@ -380,7 +381,7 @@ in the recurrent diagram you can have
 
 96
 00:04:00,040 --> 00:04:03,220
-these additional things this is a fine
+these additional things this is a *fine
 
 97
 00:04:03,220 --> 00:04:04,660
@@ -388,15 +389,15 @@ transformation squashing that's like a
 
 98
 00:04:04,660 --> 00:04:06,640
-delay module with a final transformation
+delay module with a affine transformation
 
 99
 00:04:06,640 --> 00:04:08,830
-excursion and now you have the final one
+**squashing and now you have the final one
 
 100
 00:04:08,830 --> 00:04:10,900
-affine transformation and squashing
+affine transformation and **squashing
 
 101
 00:04:10,900 --> 00:04:14,620
@@ -432,7 +433,7 @@ state of the system evolves you can be
 
 109
 00:04:33,070 --> 00:04:35,169
-spitting out at every time stamp one
+**spitting out at every *timestemp one
 
 110
 00:04:35,169 --> 00:04:38,470
@@ -540,7 +541,7 @@ parking lot
 
 136
 00:05:42,250 --> 00:05:44,050
-well it's CL um but it's not a school
+well it's yellow but it's not a school
 
 137
 00:05:44,050 --> 00:05:46,600
@@ -556,7 +557,7 @@ you can also perform very well so this
 
 140
 00:05:52,810 --> 00:05:56,470
-was from one input vector which is B for
+was from one input vector which is the for
 
 141
 00:05:56,470 --> 00:05:59,440
@@ -564,7 +565,7 @@ example representation of my image to a
 
 142
 00:05:59,440 --> 00:06:01,720
-sequence of symbols which are D for
+sequence of symbols which are the for
 
 143
 00:06:01,720 --> 00:06:03,790
@@ -608,7 +609,7 @@ a network which is outputting an output
 
 153
 00:06:26,590 --> 00:06:28,810
-given that you feel as input the
+given that you feed as input the
 
 154
 00:06:28,810 --> 00:06:29,950
@@ -632,7 +633,7 @@ I'm gonna be providing several sequences
 
 159
 00:06:37,780 --> 00:06:40,140
-yeah
+yeah...the...back to sequence is like each blue just maybe like the order mattered all like is the first one always gonna be in correspond like most important part of the image or..  
 
 160
 00:06:48,930 --> 00:06:51,509
@@ -648,7 +649,7 @@ going to make up your final sentence
 
 163
 00:06:55,380 --> 00:06:57,660
-it's it's blue there you can think about
+each each blue there you can think about
 
 164
 00:06:57,660 --> 00:07:00,330
@@ -664,7 +665,7 @@ you're gonna pick on an indexed
 
 167
 00:07:03,300 --> 00:07:07,380
-dictionary right so this is a school bus
+dictionary right so ?* this is a school bus
 
 168
 00:07:07,380 --> 00:07:09,780
@@ -680,7 +681,7 @@ index you can figure out that is yellow
 
 171
 00:07:14,940 --> 00:07:16,740
-and then school box right so the
+and then school bus right so the
 
 172
 00:07:16,740 --> 00:07:17,820
@@ -691,13 +692,13 @@ sequence here is going to be
 representing the sequence of words the
 
 174
-00:07:19,979 --> 00:07:22,590
+00:07:19,979 --> 00:07:22,590 
 model is out on the other side there on
 
 175
 00:07:22,590 --> 00:07:24,180
 the left you're gonna have instead I
-
+ 
 176
 00:07:24,180 --> 00:07:26,460
 keep feeding a sequence of symbols and
@@ -712,7 +713,7 @@ my final output what can be an
 
 179
 00:07:30,750 --> 00:07:33,539
-application of this one so something yun
+application of this one so something Yann
 
 180
 00:07:33,539 --> 00:07:36,150
@@ -724,11 +725,11 @@ see if I can get my network to compile
 
 182
 00:07:37,979 --> 00:07:40,789
-Python or to an open pilot own
+Python or no compile to interpret python
 
 183
 00:07:40,789 --> 00:07:43,410
-interpretation so in this case I have my
+ so in this case I have my
 
 184
 00:07:43,410 --> 00:07:45,599
@@ -736,7 +737,7 @@ current input which I feed my network
 
 185
 00:07:45,599 --> 00:07:49,620
-which is going to be J equal 8580 for
+which is going to be J equal 8584 for
 
 186
 00:07:49,620 --> 00:07:54,979
@@ -772,7 +773,7 @@ to output me the correct output the
 
 194
 00:08:12,000 --> 00:08:13,860
-correct in your solution of this program
+correct you know solution of this program
 
 195
 00:08:13,860 --> 00:08:16,229
@@ -792,7 +793,7 @@ eighty eight thousand eight hundred
 
 199
 00:08:21,900 --> 00:08:23,970
-thirty seven then I have C is going to
+twenty seven then I have C is going to
 
 200
 00:08:23,970 --> 00:08:26,669
@@ -808,7 +809,7 @@ other one and then you know the output
 
 203
 00:08:33,360 --> 00:08:36,450
-should be twelve thousand eight 184
+should be twelve 12184
 
 204
 00:08:36,450 --> 00:08:38,849
@@ -836,7 +837,7 @@ and these things making noise okay maybe
 
 210
 00:08:54,970 --> 00:08:56,190
-I'm better
+better
 
 211
 00:08:56,190 --> 00:09:00,700
@@ -920,11 +921,11 @@ then you know you can get LG Sonoma to
 
 231
 00:09:47,350 --> 00:09:48,730
-Felicia and then I speak outside
+Felicia and then I speak also
 
 232
 00:09:48,730 --> 00:09:53,170
-Thailand today or whatever now today I'm
+Italian today or whatever now today I'm
 
 233
 00:09:53,170 --> 00:09:54,310
@@ -1008,7 +1009,7 @@ the amounts december february november
 
 253
 00:10:48,400 --> 00:10:50,529
-whatever right if you put a few focus on
+aan whatever right if you put a few focus on
 
 254
 00:10:50,529 --> 00:10:52,750
