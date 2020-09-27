@@ -1,0 +1,1124 @@
+1
+00:00:00,030 --> 00:00:01,680
+so today we are gonna be covering quite
+
+2
+00:00:01,680 --> 00:00:03,959
+a lot of materials so I will try not to
+
+3
+00:00:03,959 --> 00:00:06,060
+run but then yesterday 
+n scooped me
+
+4
+00:00:06,060 --> 00:00:08,309
+completely so Yann talked about exactly
+
+5
+00:00:08,309 --> 00:00:09,780
+the same things I wanted to talk today
+
+6
+00:00:09,780 --> 00:00:15,269
+so I'm gonna go a bit faster please slow
+
+7
+00:00:15,269 --> 00:00:17,670
+me down if you actually are somehow lost
+
+8
+00:00:17,670 --> 00:00:18,210
+okay
+
+9
+00:00:18,210 --> 00:00:20,640
+so I will just try to be a little bit
+
+10
+00:00:20,640 --> 00:00:21,420
+faster than used to.***
+
+11
+00:00:21,420 --> 00:00:23,369
+so today we are gonna be talking about
+
+12
+00:00:23,369 --> 00:00:26,250
+recurrent neural networks record neural
+
+13
+00:00:26,250 --> 00:00:28,680
+networks are one type of architecture we
+
+14
+00:00:28,680 --> 00:00:31,050
+can use in order to be to deal with
+
+15
+00:00:31,050 --> 00:00:33,570
+sequences of data what are sequences
+
+16
+00:00:33,570 --> 00:00:37,430
+what type of signal is a sequence
+
+17
+00:00:39,890 --> 00:00:42,149
+temporal.. there is a temporal component but we
+
+18
+00:00:42,149 --> 00:00:44,219
+already seen data with temporal
+
+19
+00:00:44,219 --> 00:00:46,590
+component how what are they called
+
+20
+00:00:46,590 --> 00:00:49,350
+what dimensional what is the dimensional
+
+21
+00:00:49,350 --> 00:00:53,010
+ of that kind of signal so on
+
+22
+00:00:53,010 --> 00:00:55,320
+convolutional net **lets know we have seen
+
+23
+00:00:55,320 --> 00:00:57,660
+that a signal could 1d signal
+
+24
+00:00:57,660 --> 00:00:59,969
+ 2d signal 3d signal based on the
+
+25
+00:00:59,969 --> 00:01:01,859
+domain and the domain is what you map
+
+26
+00:01:01,859 --> 00:01:06,270
+from to go to right? so temporal handling
+
+27
+00:01:06,270 --> 00:01:08,130
+sequential sequences of data is
+
+28
+00:01:08,130 --> 00:01:10,580
+basically dealing with 1D data
+
+29
+00:01:10,580 --> 00:01:12,630
+because the domain is going to be just
+
+30
+00:01:12,630 --> 00:01:15,119
+the temporal axis nevertheless you can
+
+31
+00:01:15,119 --> 00:01:17,340
+also use RNN to deal with you know two
+
+32
+00:01:17,340 --> 00:01:18,689
+dimensional data you have double
+
+33
+00:01:18,689 --> 00:01:25,350
+Direction okay okay so this is a
+
+34
+00:01:25,350 --> 00:01:28,049
+classical neural network in the diagram
+
+35
+00:01:28,049 --> 00:01:30,329
+that is I'm used to draw where I
+
+36
+00:01:30,329 --> 00:01:33,299
+represent each in this case bunch of
+
+37
+00:01:33,299 --> 00:01:35,280
+neurons like each of those is a vector
+
+38
+00:01:35,280 --> 00:01:37,590
+and for example the X is my input vector
+
+39
+00:01:37,590 --> 00:01:40,350
+it's in pink as usual then I have my
+
+40
+00:01:40,350 --> 00:01:42,450
+hidden layer in a green in the center
+
+41
+00:01:42,450 --> 00:01:44,640
+then I have my final blue eared lane
+
+42
+00:01:44,640 --> 00:01:46,200
+layer which is the output network so
+
+43
+00:01:46,200 --> 00:01:47,790
+this is a three layer neural network in
+
+44
+00:01:47,790 --> 00:01:52,320
+my for my notation and so if some of you
+
+45
+00:01:52,320 --> 00:01:56,189
+are familiar with digital electronics
+
+46
+00:01:56,189 --> 00:01:57,960
+this is like talking about a
+
+47
+00:01:57,960 --> 00:02:00,810
+combinatorial logic your current output
+
+48
+00:02:00,810 --> 00:02:03,329
+depends only on the current input and
+
+49
+00:02:03,329 --> 00:02:05,600
+that's it there is no
+
+50
+00:02:05,600 --> 00:02:08,419
+there is no other input instead when we
+
+51
+00:02:08,419 --> 00:02:10,699
+are talking about RNN we are gonna
+
+52
+00:02:10,699 --> 00:02:12,590
+be talking about something that looks
+
+53
+00:02:12,590 --> 00:02:15,410
+like this in this case our output here
+
+54
+00:02:15,410 --> 00:02:17,420
+on the right hand side depends on the
+
+55
+00:02:17,420 --> 00:02:19,850
+current input and on the state of the
+
+56
+00:02:19,850 --> 00:02:21,860
+system and again if you're a king of
+
+57
+00:02:21,860 --> 00:02:24,500
+digital electronics this is simply
+
+58
+00:02:24,500 --> 00:02:26,750
+sequential logic whereas you have an
+
+59
+00:02:26,750 --> 00:02:28,640
+internal state e??**** the onion is th
+
+60
+00:02:28,640 --> 00:02:31,580
+dimension flip-flop if you have no idea
+
+61
+00:02:31,580 --> 00:02:33,170
+what a flip-flop you know check it out
+
+62
+00:02:33,170 --> 00:02:37,040
+it's just some very basic memory unit in
+
+63
+00:02:37,040 --> 00:02:39,980
+digital electronics nevertheless this is
+
+64
+00:02:39,980 --> 00:02:41,810
+the only difference right in the first
+
+65
+00:02:41,810 --> 00:02:43,550
+case you have an output which is just
+
+66
+00:02:43,550 --> 00:02:45,290
+function of the input in the second case
+
+67
+00:02:45,290 --> 00:02:46,730
+you have an output which is function of
+
+68
+00:02:46,730 --> 00:02:49,580
+the input and the state of the system
+
+69
+00:02:49,580 --> 00:02:54,130
+okay that's the big difference yeah
+
+70
+00:02:54,940 --> 00:02:58,040
+why is the feed-forward called vanilla? vanilla is in American term for saying
+
+71
+00:02:58,040 --> 00:03:00,640
+it's plane doesn't have a taste that
+
+72
+00:03:00,640 --> 00:03:04,670
+American sorry I try to be the most
+
+73
+00:03:04,670 --> 00:03:10,010
+American I can in Italy you feel taken
+
+74
+00:03:10,010 --> 00:03:11,390
+an ice cream which is doesn't have a
+
+75
+00:03:11,390 --> 00:03:12,799
+taste it's gonna be fury laughter  which
+
+76
+00:03:12,799 --> 00:03:15,950
+is milk taste in here we don't have milk
+
+77
+00:03:15,950 --> 00:03:18,320
+tests they have vanilla taste which is
+
+78
+00:03:18,320 --> 00:03:20,049
+the plain ice cream
+
+79
+00:03:20,049 --> 00:03:23,310
+okay Americans sorry
+
+80
+00:03:23,310 --> 00:03:28,360
+all right so oh so let's see what does
+
+81
+00:03:28,360 --> 00:03:30,340
+it change this with Yann representation
+
+82
+00:03:30,340 --> 00:03:32,760
+so Yann draws those kind of little
+
+83
+00:03:32,760 --> 00:03:35,560
+funky things here which represent a
+
+84
+00:03:35,560 --> 00:03:38,170
+mapping between a  tensor to another
+
+85
+00:03:38,170 --> 00:03:39,970
+tensor from one a vector to another
+
+86
+00:03:39,970 --> 00:03:41,800
+vector right so there you have your
+
+87
+00:03:41,800 --> 00:03:44,050
+input vector X is gonna be mapped
+
+88
+00:03:44,050 --> 00:03:46,630
+through this item here to this hidden
+
+89
+00:03:46,630 --> 00:03:48,070
+representation so that actually
+
+90
+00:03:48,070 --> 00:03:50,620
+represent my affine transformation so my
+
+91
+00:03:50,620 --> 00:03:52,780
+rotation plus suqashing**? then you
+
+92
+00:03:52,780 --> 00:03:54,130
+have the hidden** representation that you
+
+93
+00:03:54,130 --> 00:03:56,050
+have another rotation and suqashing then
+
+94
+00:03:56,050 --> 00:03:57,850
+you get the final output right similarly
+
+95
+00:03:57,850 --> 00:04:00,040
+in the recurrent diagram you can have
+
+96
+00:04:00,040 --> 00:04:03,220
+these additional things this is a *fine
+
+97
+00:04:03,220 --> 00:04:04,660
+transformation squashing that's like a
+
+98
+00:04:04,660 --> 00:04:06,640
+delay module with a affine transformation
+
+99
+00:04:06,640 --> 00:04:08,830
+**squashing and now you have the final one
+
+100
+00:04:08,830 --> 00:04:10,900
+affine transformation and **squashing
+
+101
+00:04:10,900 --> 00:04:14,620
+right these things is making noise okay
+
+102
+00:04:14,620 --> 00:04:18,100
+sorry all right so what is the first
+
+103
+00:04:18,100 --> 00:04:20,440
+case first case is this one is a vector
+
+104
+00:04:20,440 --> 00:04:24,250
+to sequence so we input one bubble the
+
+105
+00:04:24,250 --> 00:04:26,290
+pink wonder and then you're gonna have
+
+106
+00:04:26,290 --> 00:04:28,270
+this evolution of the internal state of
+
+107
+00:04:28,270 --> 00:04:30,730
+the system the green one and then as the
+
+108
+00:04:30,730 --> 00:04:33,070
+state of the system evolves you can be
+
+109
+00:04:33,070 --> 00:04:35,169
+**spitting out at every *timestemp one
+
+110
+00:04:35,169 --> 00:04:38,470
+specific output what can be an example
+
+111
+00:04:38,470 --> 00:04:40,750
+of this kind of architecture so this one
+
+112
+00:04:40,750 --> 00:04:43,240
+could be the following my input is gonna
+
+113
+00:04:43,240 --> 00:04:45,310
+be one of these images and then the
+
+114
+00:04:45,310 --> 00:04:46,750
+output is going to be a sequence of
+
+115
+00:04:46,750 --> 00:04:49,240
+characters representing the English
+
+116
+00:04:49,240 --> 00:04:53,140
+description of whatever this input is so
+
+117
+00:04:53,140 --> 00:04:55,270
+for example in the center when we have a
+
+118
+00:04:55,270 --> 00:04:57,940
+herd of elephants so the last one herd
+
+119
+00:04:57,940 --> 00:05:00,220
+of elephants walking across a dry grass
+
+120
+00:05:00,220 --> 00:05:03,880
+field so it's very very very well
+
+121
+00:05:03,880 --> 00:05:06,250
+refined right then you have in the
+
+122
+00:05:06,250 --> 00:05:09,130
+center here for example two dogs play in
+
+123
+00:05:09,130 --> 00:05:12,880
+the in the grass maybe there are three
+
+124
+00:05:12,880 --> 00:05:15,640
+but okay they play they're playing in
+
+125
+00:05:15,640 --> 00:05:17,770
+the grass right so it's cool in this
+
+126
+00:05:17,770 --> 00:05:20,500
+case you know a red motorcycle park on
+
+127
+00:05:20,500 --> 00:05:21,970
+the side of the road
+
+128
+00:05:21,970 --> 00:05:24,610
+looks more pink or you know a little
+
+129
+00:05:24,610 --> 00:05:26,980
+blow a little a little girl in the pink
+
+130
+00:05:26,980 --> 00:05:30,490
+that is blowing bubbles that she's not
+
+131
+00:05:30,490 --> 00:05:33,640
+blowing right anything there all right
+
+132
+00:05:33,640 --> 00:05:35,650
+and then you also have you know even
+
+133
+00:05:35,650 --> 00:05:39,010
+more wrong examples right so you have
+
+134
+00:05:39,010 --> 00:05:41,560
+like yellow school bus parked in the
+
+135
+00:05:41,560 --> 00:05:42,250
+parking lot
+
+136
+00:05:42,250 --> 00:05:44,050
+well it's yellow but it's not a school
+
+137
+00:05:44,050 --> 00:05:46,600
+bus so it can be failing as well but I
+
+138
+00:05:46,600 --> 00:05:49,860
+also can do a very very nice you know
+
+139
+00:05:49,860 --> 00:05:52,810
+you can also perform very well so this
+
+140
+00:05:52,810 --> 00:05:56,470
+was from one input vector which is the for
+
+141
+00:05:56,470 --> 00:05:59,440
+example representation of my image to a
+
+142
+00:05:59,440 --> 00:06:01,720
+sequence of symbols which are the for
+
+143
+00:06:01,720 --> 00:06:03,790
+example characters or words that are
+
+144
+00:06:03,790 --> 00:06:05,620
+making here my English sentence okay
+
+145
+00:06:05,620 --> 00:06:09,190
+clear so far yeah okay another kind of
+
+146
+00:06:09,190 --> 00:06:11,440
+usage you can have is maybe the
+
+147
+00:06:11,440 --> 00:06:14,200
+following so you're gonna have sequence
+
+148
+00:06:14,200 --> 00:06:17,560
+two final vector okay so I don't care
+
+149
+00:06:17,560 --> 00:06:19,660
+about the intermediate sequences so okay
+
+150
+00:06:19,660 --> 00:06:22,120
+the top right is called Auto regressive
+
+151
+00:06:22,120 --> 00:06:24,370
+network and outer regressive network is
+
+152
+00:06:24,370 --> 00:06:26,590
+a network which is outputting an output
+
+153
+00:06:26,590 --> 00:06:28,810
+given that you feed as input the
+
+154
+00:06:28,810 --> 00:06:29,950
+previous output okay
+
+155
+00:06:29,950 --> 00:06:31,690
+so this is called Auto regressive you
+
+156
+00:06:31,690 --> 00:06:33,700
+have this kind of loopy part on the
+
+157
+00:06:33,700 --> 00:06:35,260
+network on the left hand side instead
+
+158
+00:06:35,260 --> 00:06:37,780
+I'm gonna be providing several sequences
+
+159
+00:06:37,780 --> 00:06:40,140
+yeah...the...back to sequence is like each blue just maybe like the order mattered all like is the first one always gonna be in correspond like most important part of the image or..  
+
+160
+00:06:48,930 --> 00:06:51,509
+that's gonna be the English translation
+
+161
+00:06:51,509 --> 00:06:53,880
+so you have a sequence of words that are
+
+162
+00:06:53,880 --> 00:06:55,380
+going to make up your final sentence
+
+163
+00:06:55,380 --> 00:06:57,660
+each each blue there you can think about
+
+164
+00:06:57,660 --> 00:07:00,330
+a index in a dictionary and then each
+
+165
+00:07:00,330 --> 00:07:01,889
+blue is going to tell you which word
+
+166
+00:07:01,889 --> 00:07:03,300
+you're gonna pick on an indexed
+
+167
+00:07:03,300 --> 00:07:07,380
+dictionary right so ?* this is a school bus
+
+168
+00:07:07,380 --> 00:07:09,780
+right so oh yeah a yellow school bus you
+
+169
+00:07:09,780 --> 00:07:12,570
+go to a index of a then you have second
+
+170
+00:07:12,570 --> 00:07:14,940
+index you can figure out that is yellow
+
+171
+00:07:14,940 --> 00:07:16,740
+and then school bus right so the
+
+172
+00:07:16,740 --> 00:07:17,820
+sequence here is going to be
+
+173
+00:07:17,820 --> 00:07:19,979
+representing the sequence of words the
+
+174
+00:07:19,979 --> 00:07:22,590 
+model is out on the other side there on
+
+175
+00:07:22,590 --> 00:07:24,180
+the left you're gonna have instead I
+ 
+176
+00:07:24,180 --> 00:07:26,460
+keep feeding a sequence of symbols and
+
+177
+00:07:26,460 --> 00:07:28,740
+only at the end I'm gonna look what is
+
+178
+00:07:28,740 --> 00:07:30,750
+my final output what can be an
+
+179
+00:07:30,750 --> 00:07:33,539
+application of this one so something Yann
+
+180
+00:07:33,539 --> 00:07:36,150
+also mentioned was different so let's
+
+181
+00:07:36,150 --> 00:07:37,979
+see if I can get my network to compile
+
+182
+00:07:37,979 --> 00:07:40,789
+Python or no compile to interpret python
+
+183
+00:07:40,789 --> 00:07:43,410
+ so in this case I have my
+
+184
+00:07:43,410 --> 00:07:45,599
+current input which I feed my network
+
+185
+00:07:45,599 --> 00:07:49,620
+which is going to be J equal 8584 for
+
+186
+00:07:49,620 --> 00:07:54,979
+then for X in range eight some - J 920
+
+187
+00:07:54,979 --> 00:07:57,960
+blah blah blah and then print this one
+
+188
+00:07:57,960 --> 00:07:59,430
+and then my network is going to be
+
+189
+00:07:59,430 --> 00:08:02,010
+tasked with the just you know giving me
+
+190
+00:08:02,010 --> 00:08:04,860
+twenty five thousand and eleven okay so
+
+191
+00:08:04,860 --> 00:08:06,419
+this is the final output of a program
+
+192
+00:08:06,419 --> 00:08:09,210
+and I enforced in the network to be able
+
+193
+00:08:09,210 --> 00:08:12,000
+to output me the correct output the
+
+194
+00:08:12,000 --> 00:08:13,860
+correct you know solution of this program
+
+195
+00:08:13,860 --> 00:08:16,229
+or even more complicated things for
+
+196
+00:08:16,229 --> 00:08:18,330
+example I can provide a sequence of
+
+197
+00:08:18,330 --> 00:08:19,740
+other symbols which are going to be
+
+198
+00:08:19,740 --> 00:08:21,900
+eighty eight thousand eight hundred
+
+199
+00:08:21,900 --> 00:08:23,970
+twenty seven then I have C is going to
+
+200
+00:08:23,970 --> 00:08:26,669
+be something then I have print this one
+
+201
+00:08:26,669 --> 00:08:30,599
+if something that is always true as the
+
+202
+00:08:30,599 --> 00:08:33,360
+other one and then you know the output
+
+203
+00:08:33,360 --> 00:08:36,450
+should be twelve 12184
+
+204
+00:08:36,450 --> 00:08:38,849
+right so you can train a neural net to
+
+205
+00:08:38,849 --> 00:08:40,890
+do these operations so you feed a
+
+206
+00:08:40,890 --> 00:08:42,690
+sequence of symbols and then at the
+
+207
+00:08:42,690 --> 00:08:44,730
+output you just enforce that the final
+
+208
+00:08:44,730 --> 00:08:48,870
+target should be a specific value okay
+
+209
+00:08:48,870 --> 00:08:54,970
+and these things making noise okay maybe
+
+210
+00:08:54,970 --> 00:08:56,190
+better
+
+211
+00:08:56,190 --> 00:09:00,700
+all right so what's next next is going
+
+212
+00:09:00,700 --> 00:09:02,589
+to be for example a sequence to vector
+
+213
+00:09:02,589 --> 00:09:05,140
+to sequence this used to be the standard
+
+214
+00:09:05,140 --> 00:09:07,210
+way of performing length language
+
+215
+00:09:07,210 --> 00:09:09,490
+translation so you start with a sequence
+
+216
+00:09:09,490 --> 00:09:13,000
+of symbols here shown in pink so you
+
+217
+00:09:13,000 --> 00:09:14,680
+have a sequence of inputs then
+
+218
+00:09:14,680 --> 00:09:17,290
+everything gets condensed into this kind
+
+219
+00:09:17,290 --> 00:09:20,290
+of final age which is this H over here
+
+220
+00:09:20,290 --> 00:09:23,020
+which is going to be somehow my concept
+
+221
+00:09:23,020 --> 00:09:25,630
+right so I have a sentence I squeeze the
+
+222
+00:09:25,630 --> 00:09:27,880
+sentence temporal information into just
+
+223
+00:09:27,880 --> 00:09:29,800
+one vector which is representing the
+
+224
+00:09:29,800 --> 00:09:31,600
+meaning the message I'd like to send
+
+225
+00:09:31,600 --> 00:09:33,520
+across and then I get this meaning in
+
+226
+00:09:33,520 --> 00:09:36,310
+whatever representation unrolled back in
+
+227
+00:09:36,310 --> 00:09:37,720
+a different language right so I can
+
+228
+00:09:37,720 --> 00:09:41,380
+encode I don't know today I'm very happy
+
+229
+00:09:41,380 --> 00:09:43,600
+in English as a sequence of word and
+
+230
+00:09:43,600 --> 00:09:47,350
+then you know you can get LG Sonoma to
+
+231
+00:09:47,350 --> 00:09:48,730
+Felicia and then I speak also
+
+232
+00:09:48,730 --> 00:09:53,170
+Italian today or whatever now today I'm
+
+233
+00:09:53,170 --> 00:09:54,310
+very tired
+
+234
+00:09:54,310 --> 00:09:58,480
+Jin Chen walk han lei or whatever ok so
+
+235
+00:09:58,480 --> 00:10:00,640
+again you have some kind of encoding
+
+236
+00:10:00,640 --> 00:10:02,020
+then you have a compressed
+
+237
+00:10:02,020 --> 00:10:04,540
+representation and then you get like the
+
+238
+00:10:04,540 --> 00:10:08,110
+decoding given the same compressed
+
+239
+00:10:08,110 --> 00:10:11,950
+version ok and so for example I guess
+
+240
+00:10:11,950 --> 00:10:15,040
+language translation again recently we
+
+241
+00:10:15,040 --> 00:10:17,890
+have seen transformers and a lot of
+
+242
+00:10:17,890 --> 00:10:20,709
+things like in the recent time so we're
+
+243
+00:10:20,709 --> 00:10:22,600
+going to cover that the next lesson I
+
+244
+00:10:22,600 --> 00:10:25,300
+think but this used to be the state of
+
+245
+00:10:25,300 --> 00:10:28,930
+the art until few two years ago and here
+
+246
+00:10:28,930 --> 00:10:31,000
+you can see that if you actually check
+
+247
+00:10:31,000 --> 00:10:34,089
+if you do a PCA over the latent space
+
+248
+00:10:34,089 --> 00:10:38,950
+you have that words are grouped by
+
+249
+00:10:38,950 --> 00:10:42,160
+semantics ok so if we zoom in that
+
+250
+00:10:42,160 --> 00:10:43,630
+region there are we're gonna see that in
+
+251
+00:10:43,630 --> 00:10:46,000
+what in the same location you find all
+
+252
+00:10:46,000 --> 00:10:48,400
+the amounts december february november
+
+253
+00:10:48,400 --> 00:10:50,529
+aan whatever right if you put a few focus on
+
+254
+00:10:50,529 --> 00:10:52,750
+a different region you get that a few
+
+255
+00:10:52,750 --> 00:10:53,510
+days
+
+256
+00:10:53,510 --> 00:10:55,250
+next few miles and so on right so
+
+257
+00:10:55,250 --> 00:10:57,350
+different location will have some
+
+258
+00:10:57,350 --> 00:11:00,230
+specific you know common meaning so we
+
+259
+00:11:00,230 --> 00:11:03,380
+basically see in this case how by
+
+260
+00:11:03,380 --> 00:11:05,780
+training these networks you know just
+
+261
+00:11:05,780 --> 00:11:07,880
+with symbols they will pick up on some
+
+262
+00:11:07,880 --> 00:11:09,680
+specific semantics
+
+263
+00:11:09,680 --> 00:11:12,830
+you know features right in this case you
+
+264
+00:11:12,830 --> 00:11:16,130
+can see like there is a vector so the
+
+265
+00:11:16,130 --> 00:11:18,110
+vector that is connecting women to men
+
+266
+00:11:18,110 --> 00:11:20,900
+is gonna be the same vector that is well
+
+267
+00:11:20,900 --> 00:11:24,080
+woman - man which is this one I think is
+
+268
+00:11:24,080 --> 00:11:27,590
+gonna be equal to Queen - King right and
+
+269
+00:11:27,590 --> 00:11:30,620
+so yeah it's correct and so you're gonna
+
+270
+00:11:30,620 --> 00:11:32,890
+have that the same distance in this
+
+271
+00:11:32,890 --> 00:11:35,810
+embedding space will be applied to
+
+272
+00:11:35,810 --> 00:11:37,730
+things that are female and male for
+
+273
+00:11:37,730 --> 00:11:39,800
+example or in the other case you have
+
+274
+00:11:39,800 --> 00:11:43,370
+walk-in and walked swimming and swamp so
+
+275
+00:11:43,370 --> 00:11:45,710
+you always have this you know specific
+
+276
+00:11:45,710 --> 00:11:47,960
+linear transformation you can apply in
+
+277
+00:11:47,960 --> 00:11:51,680
+order to go from one type of word to the
+
+278
+00:11:51,680 --> 00:11:53,690
+other one or this one you have the
+
+279
+00:11:53,690 --> 00:11:55,640
+connection between cities and the
+
+280
+00:11:55,640 --> 00:11:59,180
+capitals all right so one more right I
+
+281
+00:11:59,180 --> 00:12:02,240
+think what's missing from the big
